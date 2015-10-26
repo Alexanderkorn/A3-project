@@ -18,5 +18,3 @@ for i in range (len(Treintraject)):
 #        print("De resterende stations zijn: " + str(Treintraject[i+1:len(Treintraject)]))
 
 #hoi
-
-#test Giuliano
