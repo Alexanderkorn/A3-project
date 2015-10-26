@@ -17,4 +17,4 @@ for i in range (len(Treintraject)):
 #        print("Het huidige station is: " + str(Treintraject[i]))
 #        print("De resterende stations zijn: " + str(Treintraject[i+1:len(Treintraject)]))
 
-#hoi
+#hello is it me you're looking for
