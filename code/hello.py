@@ -18,3 +18,4 @@ for i in range (len(Treintraject)):
 #        print("De resterende stations zijn: " + str(Treintraject[i+1:len(Treintraject)]))
 
 #hello is it me you're looking for
+#jdkjdlkjd
