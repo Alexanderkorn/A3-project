@@ -1,8 +1,17 @@
 __author__ = 'MuscioCraft'
 
-import csv
+def ticket():
 
-with open('database.csv', 'w', newline='') as csvfile:
-    spamwriter = csv.writer(csvfile, delimiter=';',)
-    spamwriter.writerow(['Spam'] * 5 + ['Baked Beans'])
-    spamwriter.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam'])
+
+    import csv
+    from random import randint
+    ticket = randint(0,999999999)
+
+    with open('database.csv', 'a') as csvfile:
+
+        writer = csv.writer(csvfile, delimiter=';')
+        writer.writerow([input("Uw naam :"), input("Uw E-mail adres :"), ticket])
+
+    print("Uw ticket nummer is : "+ticket)
+
+ticket()
