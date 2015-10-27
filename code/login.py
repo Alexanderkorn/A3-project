@@ -6,11 +6,16 @@ import xmltodict
 
 import api
 
-
+#CVS
 naambedrijf=''#input("uw bedrijfs naam:")
 database='database.csv'
-# lijn 3
-def check_aanbieder_csv():# csv
+
+#XML
+document = "<filmsoptv datum=""><film><regisseur></regisseur></film></filmsoptv>"
+#dom = xml.dom.minidom.parseString(document)
+
+                            # lijn 3
+def check_aanbieder_csv():  # csv
     r=open(database, 'r')
     reader=csv.reader(r, delimiter=';')
     naamfilm=input("uw bedrijfs naam:")
@@ -29,7 +34,7 @@ def check_aanbieder_xml():# xml
     xml_string = r.read()
     return xmltodict.parse(xml_string)
 
-xmldict = check_aanbieder_xml()
+#xmldict = check_aanbieder_xml()
 #print(xmldict['data.xml']['regisseur'])
 
 while True:
