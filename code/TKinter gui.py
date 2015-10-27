@@ -1,8 +1,9 @@
 import tkinter as tk
-import database
+from database import *
 
 window = tk.Tk()
 window.withdraw()
+ticket()
 
 class Gebruikersnaam(tk.Frame):
     def __init__(self, master=None):
