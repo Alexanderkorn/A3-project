@@ -11,10 +11,15 @@ database='database.csv'
 def check_aanbieder_csv():# csv
     r=open(database, 'r')
     reader=csv.reader(r, delimiter=';')
-    with open(database, 'r'):
-        for row in reader:
-            if naambedrijf == row[3]: # if the username shall be on column 3 (-> index 2)
-                print("is in file")
+    global naambedrijf
+    for i in reader:
+        if naambedrijf == i: # if the username shall be on column 3 (-> index 2)
+            print("is in file")
+        else:
+            print("Niet in bestand")
+    r.close()
+    return i()
+print(check_aanbieder_csv())
 
 def check_aanbieder_xml():# xml
     r=open('data.xml', 'r')
@@ -22,4 +27,4 @@ def check_aanbieder_xml():# xml
     return xmltodict.parse(xml_string)
 
 xmldict = check_aanbieder_xml()
-print(xmldict['data.xml']['regisseur'])
+#print(xmldict['data.xml']['regisseur'])
