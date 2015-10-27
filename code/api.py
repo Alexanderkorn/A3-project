@@ -35,13 +35,13 @@ def api():
 
     datum_naar_film()
 
-    sorteren = input("Typ 0 voor Alle films \n1 voor filmtips \n2 voor film van de dag: ")
+    sorteren = input("Typ \n0 voor Alle films \n1 voor filmtips \n2 voor film van de dag: ")
 
     request_filmtotaal = ('http://www.filmtotaal.nl/api/filmsoptv.xml?apikey=elqzcftw5jip13ijtki2z8mz74i14i6d&dag=%s&sorteer=%s' %(datum, sorteren))
 
 
     response = requests.get(request_filmtotaal)
-    if response.text != "error:":
+    if response.text != "Error:":
         with open('data.xml', 'w') as f:
             f.write(response.text)
     else:
