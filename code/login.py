@@ -6,7 +6,6 @@ import xmltodict
 
 import api
 
-
 naambedrijf=''#input("uw bedrijfs naam:")
 database='database.csv'
 # lijn 3
