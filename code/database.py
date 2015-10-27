@@ -24,7 +24,7 @@ def ticket():
 
     try:
         with open('database.csv', 'a') as csvfile:
-            writer = csv.writer(csvfile, delimiter=';', dialect='excel')
+            writer = csv.writer(csvfile, delimiter=';', dialect='excel', lineterminator='\n')
             writer.writerow([str(input("Uw voornaam :")).lower(), str(input("Uw achtenaam :")).lower(), str(input("Uw E-mail adres :")).lower(),str(input("Welke film ? : (Moet nog een film selcteer menu in(andere opdracht))")).lower() , str(ticket).lower()])
 
     except:
