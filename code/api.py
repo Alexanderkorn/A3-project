@@ -1,4 +1,26 @@
 __author__ = 'Erwin'
+
+def datum_naar_film():
+    """
+    Vraag naar de datum en kijk of deze datum valid is.
+    http://stackoverflow.com/questions/10002587/validating-date-both-format-and-value
+    """
+    import time
+    import datetime
+    global date
+    date = input('Op welke datum wil je een film kijken? (dd-mm-yyyy): ')
+    try:
+        valid_date = time.strptime(date, '%d-%m-%Y')
+        today_date=str(datetime.date.today())
+
+        if date<today_date:
+            print ("Deze datum is in het verleden")
+        else:
+            print (" ")
+    except ValueError:
+            print('Invalid date!')
+            datum_naar_film()
+
 def api():
     """
     Benodigde modules: requests
@@ -9,16 +31,23 @@ def api():
     """
     import requests
 
-    dag = input("welke dag?")
-    sorteren = input("0, 1, 2")
-    request_filmtotaal = ('http://www.filmtotaal.nl/api/filmsoptv.xml?apikey=elqzcftw5jip13ijtki2z8mz74i14i6d&dag=%s&sorteer=%s' %(dag, sorteren))
+
+
+
+
+    datum_naar_film()
+#    dag = input("Welke dag wil je naar de film?")
+
+    sorteren = input("Typ 0 voor Alle films \n1 voor filmtips \n2 voor film van de dag: ")
+
+    request_filmtotaal = ('http://www.filmtotaal.nl/api/filmsoptv.xml?apikey=elqzcftw5jip13ijtki2z8mz74i14i6d&dag=%s&sorteer=%s' %(date, sorteren))
 
 
     response = requests.get(request_filmtotaal)
-    if response.text != "error: geen geldige dag":
+    if response.text != "error:":
         with open('data.xml', 'w') as f:
             f.write(response.text)
     else:
-        print("Geen geldige dag")
+        print("Er is een fout opgetreden")
 #    print(response.text)
 api()
