@@ -13,9 +13,9 @@ def read_xml():
 film_nummer = None
 film_dict = read_xml()
 nodes = parse('data.xml')
-for film_nummer in nodes.getElementsByTagName('film'): # 7 = in range of childnodes
-    #print(film_dict['filmsoptv']['film'][film_nummer]['starttijd'])
-    #print(film_nummer.toxml())
+
+for film_nummer in nodes.getElementsByTagName('film'):
+
     document = film_nummer.toxml()
     dom = xml.dom.minidom.parseString(document)
 
