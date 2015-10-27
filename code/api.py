@@ -24,6 +24,7 @@ def datum_naar_film():
             print ("Voer een geldige datum in.(Datum van vandaag of morgen) ")
     except ValueError:
         print('Invalid date!')
+        datum_naar_film()
 
 
 
