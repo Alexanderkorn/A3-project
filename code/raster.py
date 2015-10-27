@@ -9,6 +9,7 @@ root.configure(background='orange')
 class Application(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
+        self.configure(background='orange')
         self.pack()
         self.check_in_Film1()
         self.check_in_Film2()
@@ -16,9 +17,15 @@ class Application(tk.Frame):
         self.check_in_Film4()
         self.check_in_Film5()
         self.check_in_Film6()
+        w = 400
+        h = 650
+        ws = root.winfo_screenwidth()
+        hs = root.winfo_screenheight()
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        root.geometry('%dx%d+%d+%d' % (w, h, x, y))
 
     def check_in_Film1(self):
-        self.config(height=100, width=100)
         self.check_in = tk.Button(self)
         self.check_in["text"] = "The Martian"
         self.check_in["command"] = self.say_choice_film1
@@ -61,33 +68,31 @@ class Application(tk.Frame):
 
     def say_choice_film1(self):
         root.configure(background="yellow")
-        root.after(white)
         print("U heeft gekozen voor The Martian")
 
     def say_choice_film2(self):
         root.configure(background="black")
-        root.after(white)
         print("U heeft gekozen voor Star Wars")
 
     def say_choice_film3(self):
         root.configure(background="black")
-        root.after(white)
         print("U heeft gekozen voor 007: Spectre")
 
     def say_choice_film4(self):
         root.configure(background="black")
-        root.after(white)
         print("U heeft gekozen voor Lord of the Rings: The Fellowship")
 
     def say_choice_film5(self):
         root.configure(background="black")
-        root.after(white)
         print("U heeft gekozen voor Kill Bill 2")
 
     def say_choice_film6(self):
         root.configure(background="black")
-        root.after(white)
         print("U heeft gekozen voor The Ring")
+    #
+    # def show_img(self):
+    #     load = Image.open('img/martian.jpg')
+    #     render = ImageTk.
 
 def white(*args,**kwargs):
     root.configure(background="orange")
