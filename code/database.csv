@@ -1,8 +1,3 @@
-Naam;E-mail adres;Ticket Nummer
+Voornaam;Achternaam;E-mail;film;Ticket
 
-Mike Hilhorst;M.hilhorst@hotmail.nl;12345676
-
-MuscioCraft;MuscioCraft@hotmail.com;34567890
-
-Mike Hilhorst;m.hilhorst@hotmail.nl;937592887
-
+mike;hilhorst;m.hilhorst@hotmail.nl;Specter;1
