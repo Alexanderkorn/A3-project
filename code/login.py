@@ -1,7 +1,6 @@
 __author__ = 'alexander'
 
 import csv
-import xml.dom.minidom
 
 import xmltodict
 
@@ -13,7 +12,7 @@ database='database.csv'
 
 #XML
 document = "<filmsoptv datum=""><film><regisseur></regisseur></film></filmsoptv>"
-dom = xml.dom.minidom.parseString(document)
+#dom = xml.dom.minidom.parseString(document)
 
                             # lijn 3
 def check_aanbieder_csv():  # csv
@@ -35,7 +34,7 @@ def check_aanbieder_xml():# xml
     xml_string = r.read()
     return xmltodict.parse(xml_string)
 
-xmldict = check_aanbieder_xml()
+#xmldict = check_aanbieder_xml()
 #print(xmldict['data.xml']['regisseur'])
 
 while True:
