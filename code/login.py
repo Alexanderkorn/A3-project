@@ -1,15 +1,22 @@
 __author__ = 'alexander'
 
 import csv
+import xml.dom.minidom
 
 import xmltodict
 
 import api
 
+#CVS
 naambedrijf=''#input("uw bedrijfs naam:")
 database='database.csv'
-# lijn 3
-def check_aanbieder_csv():# csv
+
+#XML
+document = "<filmsoptv datum=""><film><regisseur></regisseur></film></filmsoptv>"
+dom = xml.dom.minidom.parseString(document)
+
+                            # lijn 3
+def check_aanbieder_csv():  # csv
     r=open(database, 'r')
     reader=csv.reader(r, delimiter=';')
     naamfilm=input("uw bedrijfs naam:")
