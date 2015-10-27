@@ -15,6 +15,7 @@ def ticket():
         sys.exit("Er is wat fout gegaan met importeren van de functies.")
 
 
+
     try:
         ticket = randint(0,999999999)
     except:
