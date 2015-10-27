@@ -1,13 +1,15 @@
 __author__ = 'alexander'
 
 import csv
+import sys
 
 import xmltodict
 
 import api #File binnen de map code. deze blijft een fout melding geven.
 
 #CVS
-naambedrijf=input("Film naam: ") # Word later nog gebruikt
+naambedrijf=input("Naam bedrijf: ") # Word later nog gebruikt
+naamfilm='' #Word ook later gebruikt
 database='database.csv'
 
 #XML   dit deel hangt af van database.py en TKinter_gui.py
@@ -16,7 +18,12 @@ document = "<filmsoptv datum=""><film><regisseur></regisseur></film></filmsoptv>
 
                             # lijn 3
 def check_aanbieder_csv():  # csv
-    r=open(database, 'r')
+    try:
+        r=open(database, 'r')
+    except:
+        sys.exit("Unable to open: database.csv")
+    global naambedrijf
+    global naamfilm
     reader=csv.reader(r, delimiter=';')
     naamfilm=input("Film naam:")
     for row in reader:
@@ -24,7 +31,10 @@ def check_aanbieder_csv():  # csv
             print(row[3])
         else:
             print("Niks")
-    r.close()
+    try:
+        r.close()
+    except:
+        sys.exit("Unable to close database.csv")
     return row
 
 def check_aanbieder_xml():# xml
