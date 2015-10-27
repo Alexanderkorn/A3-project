@@ -4,10 +4,10 @@ import csv
 
 import xmltodict
 
-import api #File binnen de map code. deze blijft een fout melding geven.
+#import api #File binnen de map code. deze blijft een fout melding geven.
 
 #CVS
-naambedrijf=''#input("uw bedrijfs naam:") Word later nog gebruikt
+naambedrijf=input("Film naam: ") # Word later nog gebruikt
 database='database.csv'
 
 #XML   dit deel hangt af van database.py en TKinter_gui.py
@@ -18,15 +18,14 @@ document = "<filmsoptv datum=""><film><regisseur></regisseur></film></filmsoptv>
 def check_aanbieder_csv():  # csv
     r=open(database, 'r')
     reader=csv.reader(r, delimiter=';')
-    naamfilm=input("uw bedrijfs naam:")
-    for i in reader:
-        if i[3] == naamfilm:
-            print("is in file")
+    naamfilm=input("Film naam:")
+    for row in reader:
+        if row[3] == naamfilm:
+            print(row[3])
         else:
-            print("Niet in bestand")
-    print(naamfilm)
-    return
+            print("Niks")
     r.close()
+    return row
 
 def check_aanbieder_xml():# xml
 
@@ -39,10 +38,11 @@ def check_aanbieder_xml():# xml
 
 while True:
     try:                         #Bron voor name en api.api http://stackoverflow.com/questions/3781851/run-a-python-script-from-another-python-script-passing-in-args
-        if __name__=='__main__': # call the api.py
-            api.api              # exicute api.py def api
+        #if __name__=='__main__': # call the api.py
+        #    api.api              # exicute api.py def api
         #os.system("api.py 1")
         check_aanbieder_csv()
+        print(check_aanbieder_csv())
     except:
         pass
     finally:
