@@ -24,7 +24,8 @@ def check_aanbieder_csv():# csv
     r.close()
 
 def check_aanbieder_xml():# xml
-    r=open('data.xml', 'r')
+
+    r=open('data.xml', 'rt')
     xml_string = r.read()
     return xmltodict.parse(xml_string)
 
