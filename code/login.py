@@ -42,7 +42,6 @@ while True:
             api.api              # exicute api.py def api
         #os.system("api.py 1")
         check_aanbieder_csv()
-        print(check_aanbieder_csv())
     except:
         pass
     finally:
