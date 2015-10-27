@@ -13,13 +13,13 @@ database='database.csv'
 def check_aanbieder_csv():# csv
     r=open(database, 'r')
     reader=csv.reader(r, delimiter=';')
-    naambedrijf=input("uw bedrijfs naam:")
+    naamfilm=input("uw bedrijfs naam:")
     for i in reader:
-        if i[3] == naambedrijf:
+        if i[3] == naamfilm:
             print("is in file")
         else:
             print("Niet in bestand")
-    print(naambedrijf)
+    print(naamfilm)
     return
     r.close()
 
@@ -33,8 +33,8 @@ xmldict = check_aanbieder_xml()
 
 while True:
     try:
-        if __name__=='__main__':
-            api.api
+        if __name__=='__main__': # call the api.py
+            api.api              # exicute api.py def api
         #os.system("api.py 1")
         check_aanbieder_csv()
     except:
