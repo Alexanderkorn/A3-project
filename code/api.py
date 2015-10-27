@@ -17,5 +17,7 @@ def api():
 
     response = requests.get(request_filmtotaal)
 
-    print(response.text)
+    with open('data.xml', 'w') as f:
+        f.write(response.text)
+#    print(response.text)
 api()
