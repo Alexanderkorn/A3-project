@@ -4,13 +4,13 @@ import csv
 
 import xmltodict
 
-import api
+import api #File binnen de map code. deze blijft een fout melding geven.
 
 #CVS
-naambedrijf=''#input("uw bedrijfs naam:")
+naambedrijf=''#input("uw bedrijfs naam:") Word later nog gebruikt
 database='database.csv'
 
-#XML
+#XML   dit deel hangt af van database.py en TKinter_gui.py
 document = "<filmsoptv datum=""><film><regisseur></regisseur></film></filmsoptv>"
 #dom = xml.dom.minidom.parseString(document)
 
