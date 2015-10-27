@@ -38,7 +38,7 @@ def check_aanbieder_xml():# xml
 #print(xmldict['data.xml']['regisseur'])
 
 while True:
-    try:
+    try:                         #Bron voor name en api.api http://stackoverflow.com/questions/3781851/run-a-python-script-from-another-python-script-passing-in-args
         if __name__=='__main__': # call the api.py
             api.api              # exicute api.py def api
         #os.system("api.py 1")
