@@ -4,7 +4,7 @@ import csv
 
 import xmltodict
 
-#import api #File binnen de map code. deze blijft een fout melding geven.
+import api #File binnen de map code. deze blijft een fout melding geven.
 
 #CVS
 naambedrijf=input("Film naam: ") # Word later nog gebruikt
@@ -38,8 +38,8 @@ def check_aanbieder_xml():# xml
 
 while True:
     try:                         #Bron voor name en api.api http://stackoverflow.com/questions/3781851/run-a-python-script-from-another-python-script-passing-in-args
-        #if __name__=='__main__': # call the api.py
-        #    api.api              # exicute api.py def api
+        if __name__=='__main__': # call the api.py
+            api.api              # exicute api.py def api
         #os.system("api.py 1")
         check_aanbieder_csv()
         print(check_aanbieder_csv())
