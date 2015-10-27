@@ -15,8 +15,10 @@ def api():
 
 
     response = requests.get(request_filmtotaal)
-
-    with open('data.xml', 'w') as f:
-        f.write(response.text)
+    if response.text != "error: geen geldige dag":
+        with open('data.xml', 'w') as f:
+            f.write(response.text)
+    else:
+        print("Geen geldige dag")
 #    print(response.text)
 api()
