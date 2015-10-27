@@ -33,13 +33,7 @@ def api():
     """
     import requests
 
-
-
-
-
     datum_naar_film()
-
-
 
     sorteren = input("Typ 0 voor Alle films \n1 voor filmtips \n2 voor film van de dag: ")
 
