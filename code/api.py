@@ -37,7 +37,11 @@ def api():
     """
     import requests
 
+    list = ['0', '1', '2']
     sorteren = input("Typ 0 voor Alle films \n1 voor filmtips \n2 voor film van de dag: ")
+
+    while sorteren not in list:
+        sorteren = input("Typ 0 voor Alle films \n1 voor filmtips \n2 voor film van de dag: ")
 
     request_filmtotaal = ('http://www.filmtotaal.nl/api/filmsoptv.xml?apikey=elqzcftw5jip13ijtki2z8mz74i14i6d&dag=%s&sorteer=%s' %(datum, sorteren))
 
@@ -48,5 +52,5 @@ def api():
             f.write(response.text)
     else:
         print("Er is een fout opgetreden")
-#    print(response.text)
+
 datum_naar_film()
