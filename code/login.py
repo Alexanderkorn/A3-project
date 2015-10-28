@@ -14,13 +14,6 @@ naamfilm='' #Word ook later gebruikt
 naamzender=input("Naam van de zender: ")
 database='database.csv'
 
-#XML   dit deel hangt af van database.py en TKinter_gui.py
-document = "<filmsoptv><film>><zender></zender></film></filmsoptv>"
-dom = xml.dom.minidom.parseString(document)
-doc = minidom.parse('data.xml')
-
-name = doc.getElementsByTagName("film")[0]
-print(name.firstChild.data)
                             # lijn 3
 def check_aanbieder_csv():  # csv
     try:
@@ -60,6 +53,16 @@ def check_aanbieder_csv():  # csv
     except:
         sys.exit("Unable to close database.csv")
     return row
+"""""
+#XML   dit deel hangt af van database.py en TKinter_gui.py
+
+
+document = "<filmsoptv><film>><zender></zender></film></filmsoptv>"
+dom = xml.dom.minidom.parseString(document)
+doc = minidom.parse('data.xml')
+
+name = doc.getElementsByTagName("film")[0]
+print(name.firstChild.data)
 
 def check_aanbieder_xml():# xml
     r=open('data.xml', 'rt')
@@ -82,12 +85,12 @@ nodes = parse('data.xml')
 for film_nummer in nodes.getElementsByTagName('zender'): # 7 = in range of childnodes
     #print(film_dict['filmsoptv']['film'][film_nummer]['starttijd'])
     print(film_nummer.toxml())
-
+"""""
 while True:
     try:                         #Bron voor name en api.api http://stackoverflow.com/questions/3781851/run-a-python-script-from-another-python-script-passing-in-args
         #if __name__=='__main__': # call the api.py
         #    api.api              # exicute api.py def api
-        check_aanbieder_xml()
+        check_aanbieder_csv()
     except:
         pass
     finally:
