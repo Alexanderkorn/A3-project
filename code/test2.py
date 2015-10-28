@@ -18,3 +18,5 @@ DATA.sort(key=lambda row: row[1])
 
 for d in DATA:
     print("{:10s} {:10s} {}".format(*d))
+
+
