@@ -1,10 +1,11 @@
-__author__ = 'Roy'
+__author__ = 'MuscioCraft'
 #bron: http://stackoverflow.com/questions/6653128/getting-text-between-xml-tags-with-minidom
 
 import xmltodict
 import xml.dom.minidom
 import csv
 from xml.dom.minidom import parse
+
 
 def read_xml():
     file = open('data.xml','r')
@@ -32,29 +33,12 @@ for film_nummer in nodes.getElementsByTagName('film'):
         for token in tokenlist:
             texts += ""+ getText(token.childNodes)
         return texts
-    foo = dom.getElementsByTagName("starttijd")
+    foo = dom.getElementsByTagName("zender")
     text = handleTok(foo)
 
     bob = dom.getElementsByTagName("titel")
     text2 = handleTok(bob)
-    print(text, text2)
-
-
-
-
-def achternamen():
-    f=open('database.csv','r')
-    reader=csv.reader(f, delimiter=';')
-    x=0
-    for row in reader:
-        if x == 0:
-            x=1
-            pass
-        else:
-            a = row[1]
-            print(sorted(reader))
-
-    f.close()
-
-achternamen()
+    x = "RTL7"
+    if x in text:
+        print(text, text2,"laol")
 
