@@ -34,7 +34,13 @@ for film_nummer in nodes.getElementsByTagName('film'):
         return texts
     foo = dom.getElementsByTagName("starttijd")
     text = handleTok(foo)
-    print(text)
+
+    bob = dom.getElementsByTagName("titel")
+    text2 = handleTok(bob)
+    print(text, text2)
+
+
+
 
 def achternamen():
     f=open('database.csv','r')
@@ -51,5 +57,4 @@ def achternamen():
     f.close()
 
 achternamen()
-
 
