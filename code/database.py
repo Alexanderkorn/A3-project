@@ -28,7 +28,7 @@ def ticket():
             writer.writerow([str(input("Uw voornaam :")).lower(), str(input("Uw achtenaam :")).lower(), str(input("Uw E-mail adres :")).lower(),str(input("Welke film ? : (Moet nog een film selcteer menu in(andere opdracht))")).lower() , str(ticket).lower()])
 
     except:
-        sys.exit("Er is wat mis gegaan met het openen en of het scrijven van de database")
+        sys.exit("Er is wat mis gegaan met het openen en of het schrijven van de database")
 
 
     try:
