@@ -7,15 +7,15 @@ import xmltodict
 from xml.dom.minidom import parse
 from xml.dom import minidom
 # imports van bestaande files
-import film
-import sort
-import TKinter_gui
+#import film
+#import sort
+#import TKinter_gui
 #import api #File binnen de map code. deze blijft een fout melding geven.
 #film.x=input("Zender is: ")
 a=input("Zender is: ")
 
 #CVS
-naambedrijf=TKinter_gui.zenders_leveranciers # Word later nog gebruikt
+naambedrijf=""#TKinter_gui.zenders_leveranciers # Word later nog gebruikt
 naamfilm=input("Film naam:")
 database='database.csv'
 
@@ -77,6 +77,32 @@ def check_aanbieder_csv():  # csv
     except:
         sys.exit("Unable to close database.csv")
     return row
+
+keywords = {"aasdf", "aasdfs"}
+csv.field_size_limit(sys.maxsize)
+invalids = 0
+valids = 0
+for filename in ['database.csv']:
+    # The with statement in Python makes sure that your file is properly closed
+    # (automatically) when an error occurs. This is a common idiom.
+    # In addition, CSV files should be opened only in 'rb' mode.
+    with open(filename, 'rb') as f:
+        reader = csv.reader(f, delimiter='|', quotechar='\\')
+        for row in reader:
+            try:
+                print(row)[2]
+                valids += 1
+            # Don't use bare except clauses. It will catch
+            # exceptions you don't want or intend to catch.
+            except IndexError:
+                invalids += 1
+            # The filtering is done here.
+            for field in row:
+                if field in keywords:
+                    print(row)
+                    break
+# Prefer the str.format() method over the old style string formatting.
+print('parsed {0} records. ignored {1}'.format(valids, invalids))
 """""
 #XML   dit deel hangt af van database.py en TKinter_gui.py
 
