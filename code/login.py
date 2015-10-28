@@ -9,13 +9,14 @@ from xml.dom import minidom
 # imports van bestaande files
 import film
 import sort
+import TKinter_gui
 #import api #File binnen de map code. deze blijft een fout melding geven.
 #film.x=input("Zender is: ")
 a=input("Zender is: ")
+
 #CVS
-naambedrijf=input("Naam bedrijf: ") # Word later nog gebruikt
-naamfilm='' #Word ook later gebruikt
-naamzender=input("Naam van de zender: ")
+naambedrijf=TKinter_gui.zenders_leveranciers # Word later nog gebruikt
+naamfilm=input("Film naam:")
 database='database.csv'
 
 def check_login():
@@ -38,7 +39,7 @@ def check_aanbieder_csv():  # csv
     global naambedrijf
     global naamfilm
     reader=csv.reader(r, delimiter=';')
-    naamfilm=input("Film naam:")
+
     try:
         # if naambedrijf == "20fox":
         #     print("welkom "+naambedrijf)
@@ -50,10 +51,18 @@ def check_aanbieder_csv():  # csv
         #     print("De film: ", naamfilm, " komt ", naamfilm.count(naamfilm), " voor in de database.")
         #     if naamfilm == "specter" or "house of carts":
         #         print(naamfilm.count(naamfilm))
-        if naambedrijf == "":
+        if naambedrijf == "NPO3":
             print("hoi")
+        elif naambedrijf == "RTL4":
+            print("Doei")
+        elif naambedrijf == "RTL7":
+            print("Test")
+        elif naambedrijf == "RTL8":
+            print("Blaa")
+        elif naambedrijf == "Canvas":
+            print("Looo")
         else:
-            print("Sorry geen geldig bedrijf.")
+            print("Sorry geen geldig zender.")
             pass
     except:
         print("Sorry geen geldig bedrijf.")
