@@ -10,7 +10,8 @@ from xml.dom import minidom
 import film
 import sort
 #import api #File binnen de map code. deze blijft een fout melding geven.
-
+#film.x=input("Zender is: ")
+a=input("Zender is: ")
 #CVS
 naambedrijf=input("Naam bedrijf: ") # Word later nog gebruikt
 naamfilm='' #Word ook later gebruikt
