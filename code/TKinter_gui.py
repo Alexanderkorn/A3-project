@@ -1,6 +1,11 @@
-
 import tkinter as tk
 import sys
+import xmltodict
+import xml.dom.minidom
+from xml.dom.minidom import parse
+from navigation import *
+
+
 
 def ticket():
     """
@@ -26,7 +31,7 @@ def ticket():
     try:
         with open('database.csv', 'a') as csvfile:
             writer = csv.writer(csvfile, delimiter=';', dialect='excel', lineterminator='\n')
-            writer.writerow([App.naam, App.achternaam, App.emailadres, str(ticket)])
+            writer.writerow([App.naam, App.achternaam, App.emailadres, app. str(ticket)])
 
     except:
         sys.exit("Er is wat mis gegaan met het openen en of het schrijven van de database")
@@ -37,9 +42,51 @@ def ticket():
     except:
         sys.exit("Er is wat fout gegaan met het ticket nummer printen.")
 
+#bron: http://stackoverflow.com/questions/6653128/getting-text-between-xml-tags-with-minidom
 
-window = tk.Tk()
-window.withdraw()
+
+def read():
+    def read_xml():
+        file = open('data.xml','r')
+        xml_string = file.read()
+        return xmltodict.parse(xml_string)
+
+    film_nummer = None
+    film_dict = read_xml()
+    nodes = parse('data.xml')
+    zenders=[]
+
+    for film_nummer in nodes.getElementsByTagName('film'):
+
+        document = film_nummer.toxml()
+        dom = xml.dom.minidom.parseString(document)
+
+        def getText(nodelist):
+            rc = []
+            for node in nodelist:
+                if node.nodeType == node.TEXT_NODE:
+                    rc.append(node.data)
+            return ''.join(rc)
+
+        def handleTok(tokenlist):
+            texts = ""
+            for token in tokenlist:
+                texts += ""+ getText(token.childNodes)
+            return texts
+        foo = dom.getElementsByTagName("zender")
+        text = handleTok(foo)
+        b =text.split()
+        zenders.extend(b)
+        #print(text) # output zenders. read() is nodig om dit te laten werken
+
+    len(zenders)
+    f = []
+    for i in zenders:
+        while i not in f:
+            f.append(i)
+
+read()
+
 
 LARGE_FONT = ("Verdana", 12)
 
@@ -48,6 +95,42 @@ class Gebruikersnaam(tk.Frame):
         tk.Frame.__init__(self, master)
         self.pack()
         self.Naam_invoer()
+
+    def Selectie_scherm(self):
+        self.selctie_scherm_vak = tk.Tk()
+        w = 400
+        h = 650
+        ws = self.selctie_scherm_vak.winfo_screenwidth()
+        hs = self.selctie_scherm_vak.winfo_screenheight()
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        self.selctie_scherm_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        self.selctie_scherm_vak.configure(background="orange")
+        label = tk.Label(self.selctie_scherm_vak, text="Bent u aanbieder of klant?", font="LARGE_FONT", background='orange')
+        label.place(y=230, x=105)
+        klant_button = tk.Button(self.selctie_scherm_vak, text="Klant", command=self.Naam_invoer)
+        klant_button.place(y=350, x=140)
+        leverancier_button = tk.Button(self.selctie_scherm_vak, text="Leverancier", command=self.Bedrijfsnaam_invoer)
+        leverancier_button =
+
+    def Bedrijfsnaam_invoer(self):
+        self.selctie_scherm_vak.destroy()
+        self.leverancier_invoer_vak = tk.Tk()
+        w = 400
+        h = 650
+        ws = self.leverancier_invoer_vak.winfo_screenwidth()
+        hs = self.leverancier_invoer_vak.winfo_screenheight()
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        self.leverancier_invoer_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        self.leverancier_invoer_vak.configure(background="orange")
+        label = tk.Label(self.leverancier_invoer_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
+        label.place(y=230, x=105)
+        label_leveranciersnaam = tk.Label(self.leverancier_invoer_vak, text="Naam leverancier: ", background="orange")
+        label_leveranciersnaam.place(y=300, x=100)
+        quit_button = tk.Button(self.voornaam_invoer_vak, text="Afsluiten", command=self.Quit_button)
+        quit_button.place(y=350, x=195)
+        self.leverancier_invoer_vak.mainloop()
 
     def Naam_invoer(self):
         """Deze functie laat de gebruiker zijn/haar naam invoeren.
@@ -121,15 +204,19 @@ class Gebruikersnaam(tk.Frame):
         label.place(y=230, x=105)
         label_emailadres = tk.Label(self.email_invoer_vak, text="Uw E-mailadres: ", background="orange")
         label_emailadres.place(y=300, x=65)
-        emailadres_invoer = tk.Entry(self.email_invoer_vak)
-        emailadres_invoer.bind('<Return>', lambda event: self.Exit_program(emailadres_invoer.get()))
-        emailadres_invoer.place(y=300, x=160)
-        verder_button = tk.Button(self.email_invoer_vak, text="Verder", command=(lambda: self.Exit_program(emailadres_invoer.get())))
+        self.emailadres_invoer = tk.Entry(self.email_invoer_vak)
+        self.emailadres_invoer.bind('<Return>', lambda: self.Open_menu())
+        self.emailadres_invoer.place(y=300, x=160)
+        verder_button = tk.Button(self.email_invoer_vak, text="Verder", command=(lambda: self.Open_menu()))
         verder_button.place(y=350, x=140)
         quit_button = tk.Button(self.email_invoer_vak, text="Afsluiten", command=self.Quit_button)
         quit_button.place(y=350, x=195)
         self.email_invoer_vak.mainloop()
-        return emailadres_invoer
+        return self.emailadres_invoer
+
+    def Open_menu(self):
+        self.Exit_program(self.emailadres_invoer.get())
+        from navigation import ThuisBioscoop #kan beter maar hij opent bij importeren
 
     def Exit_program(self, emailadres):
         """Deze functie zorgt ervoor dat het programma compleet afgesloten wordt.
@@ -139,12 +226,12 @@ class Gebruikersnaam(tk.Frame):
         window.destroy()
 
     def Quit_button(self):
-        """Deze functie zorgt voor een knop die het hele programma afsluit.
+        """Deze functie zorgt ervoor dat het programma compleet afgesloten wordt.
         """
         sys.exit()
 
 App = Gebruikersnaam(master=window)
-
 App.mainloop()
-
 ticket()
+
+# ticket nummer in  window

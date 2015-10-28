@@ -145,7 +145,7 @@ class PageThree(tk.Frame):
         label = tk.Label(self, text="Star wars: Episode IV", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
-        self.button1 = ttk.Button(self, text="Terug naar home",
+        button1 = ttk.Button(self, text="Terug naar home",
                             command=lambda: controller.show_frame(StartPage))
         button1.pack()
 
