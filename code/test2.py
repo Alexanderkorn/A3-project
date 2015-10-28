@@ -9,6 +9,7 @@ DATA = [
     ('Smith', 'Jane', 58),
     ('Smith', 'Twin2', 3),
     ('Jones', 'John', 60),
+
     ('Smith', 'Twin1', 3),
     ('Jones', 'Twin1', 3),
     ('Jones', 'Twin2', 3)
