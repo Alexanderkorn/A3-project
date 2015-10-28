@@ -60,6 +60,7 @@ def achternamen():
     print (sorted(list2))
     #print(sorted(list, reverse=True))
     q.close()
+    #zsdfghjkl;
 
 
     f=open('database.csv','r')
