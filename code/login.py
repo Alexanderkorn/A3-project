@@ -38,6 +38,7 @@ def check_aanbieder_csv():  # csv
             if naamfilm == "specter" or "house of carts":
                 print(naamfilm.count(naamfilm))
         else:
+            print("Sorry geen geldig bedrijf.")
             pass
     except:
         print("Sorry geen geldig bedrijf.")
