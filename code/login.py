@@ -7,6 +7,7 @@ import xmltodict
 from xml.dom.minidom import parse
 from xml.dom import minidom
 # imports van bestaande files
+import film
 import sort
 #import api #File binnen de map code. deze blijft een fout melding geven.
 
@@ -16,12 +17,14 @@ naamfilm='' #Word ook later gebruikt
 naamzender=input("Naam van de zender: ")
 database='database.csv'
 
-def login():
+def log_in():
     credentials = {}
     with open('Usernames.txt', 'r') as f:
         for line in f:
             user, pwd = line.strip().split(':')
             credentials[user] = pwd
+            print(pwd)
+            print(user)
 
                             # lijn 3
 def check_aanbieder_csv():  # csv
@@ -100,7 +103,7 @@ while True:
         #if __name__=='__main__': # call the api.py
         #    api.api              # exicute api.py def api
         #check_aanbieder_csv()
-        login()
+        log_in()
     except:
         pass
     finally:
