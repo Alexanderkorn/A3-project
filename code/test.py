@@ -3,6 +3,7 @@ __author__ = 'Roy'
 
 import xmltodict
 import xml.dom.minidom
+import csv
 from xml.dom.minidom import parse
 
 def read_xml():
@@ -35,5 +36,20 @@ for film_nummer in nodes.getElementsByTagName('film'):
     text = handleTok(foo)
     print(text)
 
+def achternamen():
+    f=open('database.csv','r')
+    reader=csv.reader(f, delimiter=';')
+    x=0
+    for row in reader:
+        if x == 0:
+            x=1
+            pass
+        else:
+            a = row[1]
+            print(sorted(a))
+
+    f.close()
+
+achternamen()
 
 
