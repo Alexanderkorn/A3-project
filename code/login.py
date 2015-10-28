@@ -18,14 +18,14 @@ naamfilm='' #Word ook later gebruikt
 naamzender=input("Naam van de zender: ")
 database='database.csv'
 
-def log_in():
-    credentials = {}
-    with open('Usernames.txt', 'r') as f:
-        for line in f:
-            user, pwd = line.strip().split(':')
-            credentials[user] = pwd
-            print(pwd)
-            print(user)
+# def log_in():
+#     credentials = {}
+#     with open('Usernames.txt', 'r') as f:
+#         for line in f:
+#             user, pwd = line.strip().split(':')
+#             credentials[user] = pwd
+#             print(pwd)
+#             print(user)
 
                             # lijn 3
 def check_aanbieder_csv():  # csv
