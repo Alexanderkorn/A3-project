@@ -18,14 +18,16 @@ naamfilm='' #Word ook later gebruikt
 naamzender=input("Naam van de zender: ")
 database='database.csv'
 
-# def log_in():
-#     credentials = {}
-#     with open('Usernames.txt', 'r') as f:
-#         for line in f:
-#             user, pwd = line.strip().split(':')
-#             credentials[user] = pwd
-#             print(pwd)
-#             print(user)
+def check_login():
+    code = int(input("uw code alstublieft"))
+    f=open("Usernames.csv",'r')
+    reader=csv.reader(f, delimiter=';')
+
+    for i in reader:
+        if int(i[1]) == int(code):
+            print(i[0])
+            print("Succes")
+    f.close()
 
                             # lijn 3
 def check_aanbieder_csv():  # csv
@@ -103,8 +105,8 @@ while True:
     try:                         #Bron voor name en api.api http://stackoverflow.com/questions/3781851/run-a-python-script-from-another-python-script-passing-in-args
         #if __name__=='__main__': # call the api.py
         #    api.api              # exicute api.py def api
-        #check_aanbieder_csv()
-        log_in()
+        check_login()
+        check_aanbieder_csv()
     except:
         pass
     finally:
