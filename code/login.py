@@ -26,6 +26,22 @@ def check_aanbieder_csv():  # csv
     global naamfilm
     reader=csv.reader(r, delimiter=';')
     naamfilm=input("Film naam:")
+    try:
+        if naambedrijf == "20fox":
+            print("welkom "+naambedrijf)
+            print("De film: ", naamfilm, " komt ", naamfilm.count(naamfilm), " voor in de database.")
+            if naamfilm == "specter" or "house of carts":
+                print(naamfilm.count(naamfilm))
+        elif naambedrijf == "lionsgate":
+            print("welkom "+naambedrijf)
+            print("De film: ", naamfilm, " komt ", naamfilm.count(naamfilm), " voor in de database.")
+            if naamfilm == "specter" or "house of carts":
+                print(naamfilm.count(naamfilm))
+        else:
+            pass
+    except:
+        print("Sorry geen geldig bedrijf.")
+
     for row in reader:
         if row[3] == naamfilm:
             print(row[3])
