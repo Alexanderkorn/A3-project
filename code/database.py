@@ -4,7 +4,7 @@ import sys
 def ticket():
     """
 
-    Eerst import de functie de benodigde functies.
+    Eerst import de functie de benodigde libraries.
     Dan wordt er een ticket nummer aangemaakt
 
     """
@@ -12,7 +12,7 @@ def ticket():
         import csv
         from random import randint
     except:
-        sys.exit("Er is wat fout gegaan met importeren van de functies.")
+        sys.exit("Er is wat fout gegaan met importeren van de benodigde libraries.")
 
 
 

@@ -8,7 +8,6 @@ from xml.dom.minidom import parse
 from xml.dom import minidom
 # imports van bestaande files
 import sort
-
 #import api #File binnen de map code. deze blijft een fout melding geven.
 
 #CVS
