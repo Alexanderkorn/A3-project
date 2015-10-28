@@ -1,8 +1,5 @@
 __author__ = 'Roy'
 #bron: http://stackoverflow.com/questions/6653128/getting-text-between-xml-tags-with-minidom
-# import time
-#print (time.strftime("%H:%M", time.localtime(int("1445956200"))))
-# Van timestamp naar leesbare tijd
 
 import xmltodict
 import xml.dom.minidom
@@ -49,15 +46,18 @@ def achternamen():
     f=open('database.csv','r')
     reader=csv.reader(f, delimiter=';')
     x=0
+    list=[]
     for row in reader:
         if x == 0:
             x=1
             pass
         else:
             a = row[1]
-            print(sorted(a))
+            b =a.split()
+            list.extend(b)
+    print(sorted(list))
+
 
     f.close()
 
 achternamen()
-
