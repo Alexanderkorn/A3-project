@@ -1,5 +1,8 @@
 __author__ = 'Roy'
 #bron: http://stackoverflow.com/questions/6653128/getting-text-between-xml-tags-with-minidom
+# import time
+#print (time.strftime("%H:%M", time.localtime(int("1445956200"))))
+# Van timestamp naar leesbare tijd
 
 import xmltodict
 import xml.dom.minidom
