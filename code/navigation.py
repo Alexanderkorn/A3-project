@@ -1,6 +1,43 @@
 __author__ = 'Giuliano'
 
 import tkinter as tk
+#bron: http://stackoverflow.com/questions/6653128/getting-text-between-xml-tags-with-minidom
+
+import xmltodict
+import xml.dom.minidom
+from xml.dom.minidom import parse
+
+def read_xml():
+    file = open('data.xml', 'r')
+    xml_string = file.read()
+    return xmltodict.parse(xml_string)
+
+film_nummer = None
+film_dict = read_xml()
+nodes = parse('data.xml')
+
+for film_nummer in nodes.getElementsByTagName('film'):
+
+    document = film_nummer.toxml()
+    dom = xml.dom.minidom.parseString(document)
+
+    def getText(nodelist):
+        rc = []
+        for node in nodelist:
+            if node.nodeType == node.TEXT_NODE:
+                rc.append(node.data)
+        return ''.join(rc)
+
+    def handleTok(tokenlist):
+        texts = ""
+        for token in tokenlist:
+            texts += ""+ getText(token.childNodes)
+        return texts
+    foo = dom.getElementsByTagName("titel")
+    text = handleTok(foo)
+
+
+
 from tkinter import ttk
 
 LARGE_FONT = ("Verdana", 12)
@@ -43,9 +80,10 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Home", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
-        # poster1 = tk.PhotoImage(file="poster.gif")
+        gifdir = "./"
+        poster1 = tk.PhotoImage(file=gifdir+"poster.gif")
 
-        button1 = ttk.Button(self, text="The Martian",
+        button1 = ttk.Button(self, text="The Martian", image=poster1,
                             command=lambda: controller.show_frame(PageOne))
         button1.pack()
 
@@ -80,6 +118,10 @@ class PageOne(tk.Frame):
                             command=lambda: controller.show_frame(StartPage))
         button1.pack()
 
+        button2 = ttk.Button(self, text="Inschrijven",
+                             command=lambda: controller.show_frame())
+        button2.pack()
+
 
 class PageTwo(tk.Frame):
 
@@ -92,6 +134,10 @@ class PageTwo(tk.Frame):
                             command=lambda: controller.show_frame(StartPage))
         button1.pack()
 
+        button2 = ttk.Button(self, text="Inschrijven",
+                             command=lambda: controller.show_frame())
+        button2.pack()
+
 class PageThree(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -99,9 +145,13 @@ class PageThree(tk.Frame):
         label = tk.Label(self, text="Star wars: Episode IV", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
-        button1 = ttk.Button(self, text="Terug naar home",
+        self.button1 = ttk.Button(self, text="Terug naar home",
                             command=lambda: controller.show_frame(StartPage))
         button1.pack()
+
+        button2 = ttk.Button(self, text="Inschrijven",
+                             command=lambda: controller.show_frame())
+        button2.pack()
 
 class PageFour(tk.Frame):
 
@@ -114,6 +164,10 @@ class PageFour(tk.Frame):
                             command=lambda: controller.show_frame(StartPage))
         button1.pack()
 
+        button2 = ttk.Button(self, text="Inschrijven",
+                             command=lambda: controller.show_frame())
+        button2.pack()
+
 class PageFive(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -124,6 +178,10 @@ class PageFive(tk.Frame):
         button1 = ttk.Button(self, text="Terug naar home",
                             command=lambda: controller.show_frame(StartPage))
         button1.pack()
+
+        button2 = ttk.Button(self, text="Inschrijven",
+                             command=lambda: controller.show_frame())
+        button2.pack()
 
 class PageSix(tk.Frame):
 
@@ -136,5 +194,10 @@ class PageSix(tk.Frame):
                             command=lambda: controller.show_frame(StartPage))
         button1.pack()
 
+        button2 = ttk.Button(self, text="Inschrijven",
+                             command=lambda: controller.show_frame())
+        button2.pack()
+
 app = ThuisBioscoop()
+# print(app.filmnaam)
 app.mainloop()
