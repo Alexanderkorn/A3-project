@@ -6,6 +6,9 @@ import xml
 import xmltodict
 from xml.dom.minidom import parse
 from xml.dom import minidom
+# imports van bestaande files
+import sort
+
 #import api #File binnen de map code. deze blijft een fout melding geven.
 
 #CVS
@@ -91,6 +94,7 @@ while True:
         #if __name__=='__main__': # call the api.py
         #    api.api              # exicute api.py def api
         check_aanbieder_csv()
+
     except:
         pass
     finally:
