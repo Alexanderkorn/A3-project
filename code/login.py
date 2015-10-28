@@ -5,16 +5,23 @@ import sys
 import xml
 import xmltodict
 from xml.dom.minidom import parse
+from xml.dom import minidom
+# imports van bestaande files
+import sort
 #import api #File binnen de map code. deze blijft een fout melding geven.
 
 #CVS
 naambedrijf=input("Naam bedrijf: ") # Word later nog gebruikt
 naamfilm='' #Word ook later gebruikt
+naamzender=input("Naam van de zender: ")
 database='database.csv'
 
-#XML   dit deel hangt af van database.py en TKinter_gui.py
-document = "<filmsoptv><film>><zender></zender></film></filmsoptv>"
-dom = xml.dom.minidom.parseString(document)
+def login():
+    credentials = {}
+    with open('Usernames.txt', 'r') as f:
+        for line in f:
+            user, pwd = line.strip().split(':')
+            credentials[user] = pwd
 
                             # lijn 3
 def check_aanbieder_csv():  # csv
@@ -55,6 +62,16 @@ def check_aanbieder_csv():  # csv
     except:
         sys.exit("Unable to close database.csv")
     return row
+"""""
+#XML   dit deel hangt af van database.py en TKinter_gui.py
+
+
+document = "<filmsoptv><film>><zender></zender></film></filmsoptv>"
+dom = xml.dom.minidom.parseString(document)
+doc = minidom.parse('data.xml')
+
+name = doc.getElementsByTagName("film")[0]
+print(name.firstChild.data)
 
 def check_aanbieder_xml():# xml
     r=open('data.xml', 'rt')
@@ -62,7 +79,14 @@ def check_aanbieder_xml():# xml
     return xmltodict.parse(xml_string)
 
 xmldict = check_aanbieder_xml()
-#print(xmldict['data.xml']['regisseur'])
+print(xmldict[naamzender])
+
+films = doc.getElementsByTagName("film")
+for xml_reader_out in films:
+        #sid = xml_reader_out.getAttribute("id")
+        #nickname = xml_reader_out.getElementsByTagName("nickname")[0]
+        zender = xml_reader_out.getElementsByTagName("zender")[0]
+        print("zender:% " % (zender)) #id:%s, nickname:%s, salary:%s(zender))#.firstChild.data))
 
 film_nummer = None
 film_dict = check_aanbieder_xml()
@@ -70,12 +94,13 @@ nodes = parse('data.xml')
 for film_nummer in nodes.getElementsByTagName('zender'): # 7 = in range of childnodes
     #print(film_dict['filmsoptv']['film'][film_nummer]['starttijd'])
     print(film_nummer.toxml())
-
+"""""
 while True:
     try:                         #Bron voor name en api.api http://stackoverflow.com/questions/3781851/run-a-python-script-from-another-python-script-passing-in-args
         #if __name__=='__main__': # call the api.py
         #    api.api              # exicute api.py def api
-        check_aanbieder_csv()
+        #check_aanbieder_csv()
+        login()
     except:
         pass
     finally:

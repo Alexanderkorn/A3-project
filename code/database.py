@@ -4,7 +4,7 @@ import sys
 def ticket():
     """
 
-    Eerst import de functie de benodigde functies.
+    Eerst import de functie de benodigde libraries.
     Dan wordt er een ticket nummer aangemaakt
 
     """
@@ -12,7 +12,7 @@ def ticket():
         import csv
         from random import randint
     except:
-        sys.exit("Er is wat fout gegaan met importeren van de functies.")
+        sys.exit("Er is wat fout gegaan met importeren van de benodigde libraries.")
 
 
 
@@ -28,7 +28,7 @@ def ticket():
             writer.writerow([str(input("Uw voornaam :")).lower(), str(input("Uw achtenaam :")).lower(), str(input("Uw E-mail adres :")).lower(),str(input("Welke film ? : (Moet nog een film selcteer menu in(andere opdracht))")).lower() , str(ticket).lower()])
 
     except:
-        sys.exit("Er is wat mis gegaan met het openen en of het scrijven van de database")
+        sys.exit("Er is wat mis gegaan met het openen en of het schrijven van de database")
 
 
     try:
