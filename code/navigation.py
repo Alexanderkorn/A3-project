@@ -9,11 +9,11 @@ from xml.dom.minidom import parse
 
 def read_xml():
     file = open('data.xml', 'r')
-    xml_string = file.read()
+    # xml_string = file.read()
     return xmltodict.parse(xml_string)
 
 film_nummer = None
-film_dict = read_xml()
+# film_dict = read_xml()
 nodes = parse('data.xml')
 
 for film_nummer in nodes.getElementsByTagName('film'):
@@ -55,7 +55,7 @@ class ThuisBioscoop(tk.Tk):
 
         self.frames = {}
 
-        for F in (StartPage, PageOne, PageTwo, PageThree, PageFour, PageFive, PageSix):
+        for F in (StartPage, PageOne, PageTwo, PageThree, PageFour, PageFive, PageSix, Verify1, Verify2, Verify3, Verify4, Verify5, Verify6, Complete):
 
             frame = F(container, self)
 
@@ -119,9 +119,23 @@ class PageOne(tk.Frame):
         button1.pack()
 
         button2 = ttk.Button(self, text="Inschrijven",
-                             command=lambda: controller.show_frame())
+                             command=lambda: controller.show_frame(Verify1))
         button2.pack()
 
+class Verify1(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Wilt u echt naar de Martian?", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        button1 = ttk.Button(self, text="Ja",
+                            command=lambda: controller.show_frame(Complete))
+        button1.pack()
+
+        button2 = ttk.Button(self, text="Nee",
+                             command=lambda: controller.show_frame(StartPage))
+        button2.pack()
 
 class PageTwo(tk.Frame):
 
@@ -135,7 +149,22 @@ class PageTwo(tk.Frame):
         button1.pack()
 
         button2 = ttk.Button(self, text="Inschrijven",
-                             command=lambda: controller.show_frame())
+                             command=lambda: controller.show_frame(Verify2))
+        button2.pack()
+
+class Verify2(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Wilt u echt naar Kill Bill 2?", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        button1 = ttk.Button(self, text="Ja",
+                            command=lambda: controller.show_frame(Complete))
+        button1.pack()
+
+        button2 = ttk.Button(self, text="Nee",
+                             command=lambda: controller.show_frame(StartPage))
         button2.pack()
 
 class PageThree(tk.Frame):
@@ -145,12 +174,27 @@ class PageThree(tk.Frame):
         label = tk.Label(self, text="Star wars: Episode IV", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
-        self.button1 = ttk.Button(self, text="Terug naar home",
+        button1 = ttk.Button(self, text="Terug naar home",
                             command=lambda: controller.show_frame(StartPage))
         button1.pack()
 
         button2 = ttk.Button(self, text="Inschrijven",
-                             command=lambda: controller.show_frame())
+                             command=lambda: controller.show_frame(Verify3))
+        button2.pack()
+
+class Verify3(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Wilt u echt naar Star wars: Episode IV?", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        button1 = ttk.Button(self, text="Ja",
+                            command=lambda: controller.show_frame(Complete))
+        button1.pack()
+
+        button2 = ttk.Button(self, text="Nee",
+                             command=lambda: controller.show_frame(StartPage))
         button2.pack()
 
 class PageFour(tk.Frame):
@@ -165,7 +209,22 @@ class PageFour(tk.Frame):
         button1.pack()
 
         button2 = ttk.Button(self, text="Inschrijven",
-                             command=lambda: controller.show_frame())
+                             command=lambda: controller.show_frame(Verify4))
+        button2.pack()
+
+class Verify4(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Wilt u echt naar Limitless?", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        button1 = ttk.Button(self, text="Ja",
+                            command=lambda: controller.show_frame(Complete))
+        button1.pack()
+
+        button2 = ttk.Button(self, text="Nee",
+                             command=lambda: controller.show_frame(StartPage))
         button2.pack()
 
 class PageFive(tk.Frame):
@@ -180,7 +239,22 @@ class PageFive(tk.Frame):
         button1.pack()
 
         button2 = ttk.Button(self, text="Inschrijven",
-                             command=lambda: controller.show_frame())
+                             command=lambda: controller.show_frame(Verify5))
+        button2.pack()
+
+class Verify5(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Wilt u echt naar 007: Spectre", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        button1 = ttk.Button(self, text="Ja",
+                            command=lambda: controller.show_frame(Complete))
+        button1.pack()
+
+        button2 = ttk.Button(self, text="Nee",
+                             command=lambda: controller.show_frame(StartPage))
         button2.pack()
 
 class PageSix(tk.Frame):
@@ -195,8 +269,30 @@ class PageSix(tk.Frame):
         button1.pack()
 
         button2 = ttk.Button(self, text="Inschrijven",
-                             command=lambda: controller.show_frame())
+                             command=lambda: controller.show_frame(Verify6))
         button2.pack()
+
+class Verify6(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Wilt u echt naar Back to the future?", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        button1 = ttk.Button(self, text="Ja",
+                            command=lambda: controller.show_frame(Complete))
+        button1.pack()
+
+        button2 = ttk.Button(self, text="Nee",
+                             command=lambda: controller.show_frame(StartPage))
+        button2.pack()
+
+class Complete(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Uw keuze is bevestigd", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
 
 app = ThuisBioscoop()
 # print(app.filmnaam)
