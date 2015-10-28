@@ -111,7 +111,7 @@ class Gebruikersnaam(tk.Frame):
         klant_button = tk.Button(self.selctie_scherm_vak, text="Klant", command=self.Naam_invoer)
         klant_button.place(y=350, x=140)
         leverancier_button = tk.Button(self.selctie_scherm_vak, text="Leverancier", command=self.Bedrijfsnaam_invoer)
-        leverancier_button =
+        #leverancier_button =
 
     def Bedrijfsnaam_invoer(self):
         self.selctie_scherm_vak.destroy()

@@ -7,24 +7,28 @@ import xmltodict
 from xml.dom.minidom import parse
 from xml.dom import minidom
 # imports van bestaande files
-import film
-import sort
+#import film
+#import sort
+#import TKinter_gui
 #import api #File binnen de map code. deze blijft een fout melding geven.
+#film.x=input("Zender is: ")
+a=input("Zender is: ")
 
 #CVS
-naambedrijf=input("Naam bedrijf: ") # Word later nog gebruikt
-naamfilm='' #Word ook later gebruikt
-naamzender=input("Naam van de zender: ")
+naambedrijf=""#TKinter_gui.zenders_leveranciers # Word later nog gebruikt
+naamfilm=input("Film naam:")
 database='database.csv'
 
-def log_in():
-    credentials = {}
-    with open('Usernames.txt', 'r') as f:
-        for line in f:
-            user, pwd = line.strip().split(':')
-            credentials[user] = pwd
-            print(pwd)
-            print(user)
+def check_login():
+    code = int(input("uw code alstublieft"))
+    f=open("Usernames.csv",'r')
+    reader=csv.reader(f, delimiter=';')
+
+    for i in reader:
+        if int(i[1]) == int(code):
+            print(i[0])
+            print("Succes")
+    f.close()
 
                             # lijn 3
 def check_aanbieder_csv():  # csv
@@ -35,7 +39,7 @@ def check_aanbieder_csv():  # csv
     global naambedrijf
     global naamfilm
     reader=csv.reader(r, delimiter=';')
-    naamfilm=input("Film naam:")
+
     try:
         # if naambedrijf == "20fox":
         #     print("welkom "+naambedrijf)
@@ -47,10 +51,18 @@ def check_aanbieder_csv():  # csv
         #     print("De film: ", naamfilm, " komt ", naamfilm.count(naamfilm), " voor in de database.")
         #     if naamfilm == "specter" or "house of carts":
         #         print(naamfilm.count(naamfilm))
-        if naambedrijf == "":
+        if naambedrijf == "NPO3":
             print("hoi")
+        elif naambedrijf == "RTL4":
+            print("Doei")
+        elif naambedrijf == "RTL7":
+            print("Test")
+        elif naambedrijf == "RTL8":
+            print("Blaa")
+        elif naambedrijf == "Canvas":
+            print("Looo")
         else:
-            print("Sorry geen geldig bedrijf.")
+            print("Sorry geen geldig zender.")
             pass
     except:
         print("Sorry geen geldig bedrijf.")
@@ -65,6 +77,32 @@ def check_aanbieder_csv():  # csv
     except:
         sys.exit("Unable to close database.csv")
     return row
+
+keywords = {"aasdf", "aasdfs"}
+csv.field_size_limit(sys.maxsize)
+invalids = 0
+valids = 0
+for filename in ['database.csv']:
+    # The with statement in Python makes sure that your file is properly closed
+    # (automatically) when an error occurs. This is a common idiom.
+    # In addition, CSV files should be opened only in 'rb' mode.
+    with open(filename, 'rb') as f:
+        reader = csv.reader(f, delimiter='|', quotechar='\\')
+        for row in reader:
+            try:
+                print(row)[2]
+                valids += 1
+            # Don't use bare except clauses. It will catch
+            # exceptions you don't want or intend to catch.
+            except IndexError:
+                invalids += 1
+            # The filtering is done here.
+            for field in row:
+                if field in keywords:
+                    print(row)
+                    break
+# Prefer the str.format() method over the old style string formatting.
+print('parsed {0} records. ignored {1}'.format(valids, invalids))
 """""
 #XML   dit deel hangt af van database.py en TKinter_gui.py
 
@@ -102,8 +140,8 @@ while True:
     try:                         #Bron voor name en api.api http://stackoverflow.com/questions/3781851/run-a-python-script-from-another-python-script-passing-in-args
         #if __name__=='__main__': # call the api.py
         #    api.api              # exicute api.py def api
-        #check_aanbieder_csv()
-        log_in()
+        check_login()
+        check_aanbieder_csv()
     except:
         pass
     finally:

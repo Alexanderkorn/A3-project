@@ -5,7 +5,8 @@ import xmltodict
 import xml.dom.minidom
 import csv
 from xml.dom.minidom import parse
-
+import login
+x=login.a
 
 def read_xml():
     file = open('data.xml','r')
@@ -38,7 +39,8 @@ for film_nummer in nodes.getElementsByTagName('film'):
 
     bob = dom.getElementsByTagName("titel")
     text2 = handleTok(bob)
-    x = "RTL7"
+    global x
+
     if x in text:
-        print(text, text2,"laol")
+        print(text, text2)
 
