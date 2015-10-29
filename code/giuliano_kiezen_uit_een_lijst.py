@@ -13,6 +13,7 @@ win.configure(background="orange")
 leverancier_lijst = tk.Listbox(win)
 leverancier_lijst.place(y=200, x=135)
 
+
 f = ["Piet", "Jan", "Hendrik", "Hugo"]
 
 for i in f:
