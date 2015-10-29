@@ -120,13 +120,24 @@ class PageOne(tk.Frame):
         label = tk.Label(self, text="The Martian", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
+        label = tk.Label(self, text="Kies één van de aanbieders", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        leverancier_lijst = tk.Listbox(self)
+        f = ["Piet", "Jan", "Hendrik", "Hugo"]
+
+        for i in f:
+            leverancier_lijst.insert(tk.END, i)
+
+        leverancier_lijst.pack(pady=15, padx=15)
+
         button1 = ttk.Button(self, text="Terug naar home",
                             command=lambda: controller.show_frame(StartPage))
-        button1.pack()
+        button1.pack(pady=2, padx=2)
 
         button2 = ttk.Button(self, text="Inschrijven",
                              command=lambda: controller.show_frame(Verify1))
-        button2.pack()
+        button2.pack(pady=2, padx=2)
 
 class Verify1(tk.Frame):
 
@@ -135,7 +146,7 @@ class Verify1(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Wilt u echt naar de Martian?", font="LARGE_FONT")
+        label = tk.Label(self, text="Wilt u écht naar de Martian?", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
         button1 = ttk.Button(self, text="Ja",
@@ -153,13 +164,24 @@ class PageTwo(tk.Frame):
         label = tk.Label(self, text="Kill Bill 2", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
+        label = tk.Label(self, text="Kies één van de aanbieders", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        leverancier_lijst = tk.Listbox(self)
+        f = ["Piet", "Jan", "Hendrik", "Hugo"]
+
+        for i in f:
+            leverancier_lijst.insert(tk.END, i)
+
+        leverancier_lijst.pack(pady=15, padx=15)
+
         button1 = ttk.Button(self, text="Terug naar home",
                             command=lambda: controller.show_frame(StartPage))
-        button1.pack()
+        button1.pack(pady=2, padx=2)
 
         button2 = ttk.Button(self, text="Inschrijven",
                              command=lambda: controller.show_frame(Verify2))
-        button2.pack()
+        button2.pack(pady=2, padx=2)
 
 class Verify2(tk.Frame):
 
@@ -183,13 +205,24 @@ class PageThree(tk.Frame):
         label = tk.Label(self, text="Star wars: Episode IV", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
+        label = tk.Label(self, text="Kies één van de aanbieders", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        leverancier_lijst = tk.Listbox(self)
+        f = ["Piet", "Jan", "Hendrik", "Hugo"]
+
+        for i in f:
+            leverancier_lijst.insert(tk.END, i)
+
+        leverancier_lijst.pack(pady=15, padx=15)
+
         button1 = ttk.Button(self, text="Terug naar home",
                             command=lambda: controller.show_frame(StartPage))
-        button1.pack()
+        button1.pack(pady=2, padx=2)
 
         button2 = ttk.Button(self, text="Inschrijven",
                              command=lambda: controller.show_frame(Verify3))
-        button2.pack()
+        button2.pack(pady=2, padx=2)
 
 class Verify3(tk.Frame):
 
@@ -213,13 +246,24 @@ class PageFour(tk.Frame):
         label = tk.Label(self, text="Limitless", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
+        label = tk.Label(self, text="Kies één van de aanbieders", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        leverancier_lijst = tk.Listbox(self)
+        f = ["Piet", "Jan", "Hendrik", "Hugo"]
+
+        for i in f:
+            leverancier_lijst.insert(tk.END, i)
+
+        leverancier_lijst.pack(pady=15, padx=15)
+
         button1 = ttk.Button(self, text="Terug naar home",
                             command=lambda: controller.show_frame(StartPage))
-        button1.pack()
+        button1.pack(pady=2, padx=2)
 
         button2 = ttk.Button(self, text="Inschrijven",
                              command=lambda: controller.show_frame(Verify4))
-        button2.pack()
+        button2.pack(pady=2, padx=2)
 
 class Verify4(tk.Frame):
 
@@ -243,13 +287,24 @@ class PageFive(tk.Frame):
         label = tk.Label(self, text="007: Spectre", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
+        label = tk.Label(self, text="Kies één van de aanbieders", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        leverancier_lijst = tk.Listbox(self)
+        f = ["Piet", "Jan", "Hendrik", "Hugo"]
+
+        for i in f:
+            leverancier_lijst.insert(tk.END, i)
+
+        leverancier_lijst.pack(pady=15, padx=15)
+
         button1 = ttk.Button(self, text="Terug naar home",
                             command=lambda: controller.show_frame(StartPage))
-        button1.pack()
+        button1.pack(pady=2, padx=2)
 
         button2 = ttk.Button(self, text="Inschrijven",
                              command=lambda: controller.show_frame(Verify5))
-        button2.pack()
+        button2.pack(pady=2, padx=2)
 
 class Verify5(tk.Frame):
 
@@ -273,13 +328,24 @@ class PageSix(tk.Frame):
         label = tk.Label(self, text="Back to the future", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
+        label = tk.Label(self, text="Kies één van de aanbieders", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        leverancier_lijst = tk.Listbox(self)
+        f = ["Piet", "Jan", "Hendrik", "Hugo"]
+
+        for i in f:
+            leverancier_lijst.insert(tk.END, i)
+
+        leverancier_lijst.pack(pady=15, padx=15)
+
         button1 = ttk.Button(self, text="Terug naar home",
                             command=lambda: controller.show_frame(StartPage))
-        button1.pack()
+        button1.pack(pady=2, padx=2)
 
         button2 = ttk.Button(self, text="Inschrijven",
                              command=lambda: controller.show_frame(Verify6))
-        button2.pack()
+        button2.pack(pady=2, padx=2)
 
 class Verify6(tk.Frame):
 
