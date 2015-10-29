@@ -173,7 +173,7 @@ class Gebruikersnaam(tk.Frame):
         y = (hs/2) - (h/2)
         self.filmweergave_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.filmweergave_vak.configure(background="orange")
-        lijst_van_films = tk.Text(self.filmweergave_vak, background='orange', font=('Verdana', 10), relief=tk.RIDGE)
+        lijst_van_films = tk.Text(self.filmweergave_vak, background='orange', font=('Verdana', 10))
         weergave_films_gekozen_zender_lijst = []
         weergave_films_gekozen_zender= ""
         for i in zenders_en_films:
