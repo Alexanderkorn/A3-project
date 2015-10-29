@@ -5,10 +5,12 @@ import xml.dom.minidom
 from xml.dom.minidom import parse
 import csv
 
+
+
 window = tk.Tk()
 window.withdraw()
 
-def ticket():
+def ticket(naam, achternaam, emailadres):
     """
 
     Eerst import de functie de benodigde functies.
@@ -24,6 +26,7 @@ def ticket():
 
 
     try:
+        global ticket
         ticket = randint(0,999999999)
     except:
         sys.exit("Er is wat fout gegaan met het ticket nummer aanmaken.")
@@ -32,7 +35,7 @@ def ticket():
     try:
         with open('database.csv', 'a') as csvfile:
              writer = csv.writer(csvfile, delimiter=';', dialect='excel', lineterminator='\n')
-             writer.writerow([App.naam, App.achternaam, App.emailadres, str(ticket)])
+             writer.writerow([naam, achternaam, emailadres, str(ticket)])
 
     except:
         sys.exit("Er is wat mis gegaan met het openen en of het schrijven van de database")
@@ -146,10 +149,7 @@ class Gebruikersnaam(tk.Frame):
 
         for i in f:
             leverancier_lijst.insert(tk.END, i)
-
         leverancier_lijst.place(y=200, x=135)
-        quit_button = tk.Button(self.leverancier_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
-        quit_button.place(y=380, x=195)
         def nummer_leverancier():
             goede_nummer_leverancier = str(leverancier_lijst.curselection())
             index_goede_nummer_leverancier = int(goede_nummer_leverancier[1])
@@ -158,6 +158,10 @@ class Gebruikersnaam(tk.Frame):
             self.Weergave_van_eigen_films()
         verder_button = tk.Button(self.leverancier_invoer_vak, text="Verder", command=(lambda: nummer_leverancier()), font=('Verdana', 10, 'bold'))
         verder_button.place(y=380, x=130)
+        quit_button = tk.Button(self.leverancier_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
+        quit_button.place(y=420, x=160)
+        terug_button = tk.Button(self.leverancier_invoer_vak, text="Terug", command=self.Selectie_scherm, font=('Verdana', 10, 'bold'))
+        terug_button.place(y=380, x=195)
         self.leverancier_invoer_vak.mainloop()
 
     def Weergave_van_eigen_films(self):
@@ -276,6 +280,7 @@ class Gebruikersnaam(tk.Frame):
 
     def Open_menu(self):
         self.Exit_program(self.emailadres_invoer.get())
+        ticket(self.naam, self.achternaam, self.emailadres)
         from navigation import ThuisBioscoop #kan beter maar hij opent bij importeren
 
     def Exit_program(self, emailadres):
@@ -292,6 +297,6 @@ class Gebruikersnaam(tk.Frame):
 
 App = Gebruikersnaam(master=window)
 App.mainloop()
-ticket()
+
 
 # ticket nummer in  window
