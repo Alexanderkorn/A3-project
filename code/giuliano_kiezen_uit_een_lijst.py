@@ -2,17 +2,8 @@ __author__ = 'Stijn'
 import tkinter as tk
 
 win = tk.Tk()
-w = 400
-h = 650
-ws = win.winfo_screenwidth()
-hs = win.winfo_screenheight()
-x = (ws/2) - (w/2)
-y = (hs/2) - (h/2)
-win.geometry('%dx%d+%d+%d' % (w, h, x, y))
-win.configure(background="orange")
 leverancier_lijst = tk.Listbox(win)
 leverancier_lijst.place(y=200, x=135)
-
 
 f = ["Piet", "Jan", "Hendrik", "Hugo"]
 
