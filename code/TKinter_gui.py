@@ -86,15 +86,11 @@ def read():
         text2 = handleTok(bob)
         c =text2.split("\n")
         films.extend(c)
-    print(text, text2)
-    print(zenders, films)
     for i in range(len(zenders)):
         if zenders[i] not in zenders_en_films:
             zenders_en_films[zenders[i]]=films[i]
         else:
             zenders_en_films[zenders[i]+' 2e film']=films[i]
-
-    print(zenders_en_films)
         #print(text) # output zenders. read() is nodig om dit te laten werken
 
 read()
