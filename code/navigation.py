@@ -83,14 +83,15 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Home", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
+        gifdir = "./"
 
-        igm = tk.PhotoImage(file="./poster.gif")
+        img = tk.PhotoImage(file=gifdir+"poster.gif")
+        # tk.Button(self, image=igm).pack()
 
-        Button(self, image=igm, height=175, width=105).pack()
-        StartPage.Button = Button
 
-        button1 = ttk.Button(self, text="The Martian", image=igm,
+        button1 = tk.Button(self, image=img,
                             command=lambda: controller.show_frame(PageOne))
+        button1.image=img
         button1.pack()
 
         button2 = ttk.Button(self, text="Kill Bill 2",
