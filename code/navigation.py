@@ -1,6 +1,8 @@
 __author__ = 'Giuliano'
 
 import tkinter as tk
+from tkinter import *
+
 #bron: http://stackoverflow.com/questions/6653128/getting-text-between-xml-tags-with-minidom
 
 import xmltodict
@@ -55,7 +57,9 @@ class ThuisBioscoop(tk.Tk):
 
         self.frames = {}
 
-        for F in (StartPage, PageOne, PageTwo, PageThree, PageFour, PageFive, PageSix, Verify1, Verify2, Verify3, Verify4, Verify5, Verify6, Complete):
+        for F in (StartPage, PageOne, PageTwo, PageThree, PageFour,
+                  PageFive, PageSix, Verify1, Verify2, Verify3, Verify4,
+                  Verify5, Verify6, Complete):
 
             frame = F(container, self)
 
@@ -80,10 +84,12 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Home", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
-        gifdir = "./"
-        poster1 = tk.PhotoImage(file=gifdir+"poster.gif")
+        igm = tk.PhotoImage(file="./poster.gif")
 
-        button1 = ttk.Button(self, text="The Martian", image=poster1,
+        Button(self, image=igm, height=175, width=105).pack()
+        StartPage.Button = Button
+
+        button1 = ttk.Button(self, text="The Martian", image=igm,
                             command=lambda: controller.show_frame(PageOne))
         button1.pack()
 
@@ -124,13 +130,16 @@ class PageOne(tk.Frame):
 
 class Verify1(tk.Frame):
 
+    def end_choice1(self):
+        print("U heeft gekozen voor The Martian")
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Wilt u echt naar de Martian?", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
         button1 = ttk.Button(self, text="Ja",
-                            command=lambda: controller.show_frame(Complete))
+                            command=lambda: controller.show_frame(Complete)+PageOne.end_choice1(self))
         button1.pack()
 
         button2 = ttk.Button(self, text="Nee",
