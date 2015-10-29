@@ -128,26 +128,6 @@ class PageOne(tk.Frame):
                              command=lambda: controller.show_frame(Verify1))
         button2.pack()
 
-        f = ["Piet", "Jan", "Hendrik", "Hugo"]
-
-        for i in f:
-            leverancier_lijst.insert(tk.END, i)
-
-        leverancier_lijst.place(y=200, x=135)
-        def film_aanbieder():
-            goede_nummer_film_aanbieder = str(leverancier_lijst.curselection())
-            index_goede_film_aanbieder = int(goede_film_aanbieder[1])
-            global zender_leverancier
-            zender_leverancier = zenders[index_goede_film_aanbieder]
-            # aan het eind van de functie gaat hij door naar het nieuwe scherm -->
-            self.Weergave_van_eigen_films()
-
-        # je hebt een button nodig in het scherm
-        # de button voort de functie hierboven uit
-        verder_button = ttk.Button(self, text="Verder",
-                                   command=(lambda: controller.show_frame(Complete)), font=('Verdana', 10, 'bold'))
-        verder_button.place(y=380, x=130)
-
 class Verify1(tk.Frame):
 
     def end_choice1(self):

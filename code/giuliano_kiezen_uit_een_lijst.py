@@ -1,23 +1,34 @@
 __author__ = 'Stijn'
+import tkinter as tk
 
+win = tk.Tk()
+w = 400
+h = 650
+ws = win.winfo_screenwidth()
+hs = win.winfo_screenheight()
+x = (ws/2) - (w/2)
+y = (hs/2) - (h/2)
+win.geometry('%dx%d+%d+%d' % (w, h, x, y))
+win.configure(background="orange")
+leverancier_lijst = tk.Listbox(win)
+leverancier_lijst.place(y=200, x=135)
 
-leverancier_lijst = tk.Listbox(self.leverancier_invoer_vak)
+f = ["Piet", "Jan", "Hendrik", "Hugo"]
 
-        f = ["Piet", "Jan", "Hendrik", "Hugo"]
+for i in f:
+    leverancier_lijst.insert(tk.END, i)
 
-        for i in f:
-            leverancier_lijst.insert(tk.END, i)
+# def nummer_leverancier():
+#     goede_nummer_leverancier = str(leverancier_lijst.curselection())
+#     index_goede_nummer_leverancier = int(goede_nummer_leverancier[1])
+#     global zender_leverancier
+#     zender_leverancier = zenders[index_goede_nummer_leverancier]
+#     # aan het eind van de functie gaat hij door naar het nieuwe scherm -->
+#     self.Weergave_van_eigen_films()
 
-        leverancier_lijst.place(y=200, x=135)
-        def nummer_leverancier():
-            goede_nummer_leverancier = str(leverancier_lijst.curselection())
-            index_goede_nummer_leverancier = int(goede_nummer_leverancier[1])
-            global zender_leverancier
-            zender_leverancier = zenders[index_goede_nummer_leverancier]
-            # aan het eind van de functie gaat hij door naar het nieuwe scherm -->
-            self.Weergave_van_eigen_films()
+# je hebt een button nodig in het scherm
+# de button voort de functie hierboven uit
+verder_button = tk.Button(win, text="Verder", command=(lambda: None), font=('Verdana', 10, 'bold'))
+verder_button.place(y=380, x=130)
 
-        # je hebt een button nodig in het scherm
-        # de button voort de functie hierboven uit
-        verder_button = tk.Button(self.leverancier_invoer_vak, text="Verder", command=(lambda: nummer_leverancier()), font=('Verdana', 10, 'bold'))
-        verder_button.place(y=380, x=130)
+win.mainloop()
