@@ -3,7 +3,9 @@ __author__ = 'Stijn'
 
 leverancier_lijst = tk.Listbox(self.leverancier_invoer_vak)
 
-        for i in f# f is de lijst met dingen die je in de listbox wilt hebben:
+        f = ["Piet", "Jan", "Hendrik", "Hugo"]
+
+        for i in f:
             leverancier_lijst.insert(tk.END, i)
 
         leverancier_lijst.place(y=200, x=135)
