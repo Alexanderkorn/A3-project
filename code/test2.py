@@ -1,18 +1,19 @@
 __author__ = 'alexander'
-import mmap
-f = open('passwords.txt')
+#import mmap
+#f = open('passwords.txt')
 username=input("gebruikers naam:")
 password=input("Wachtwoord:")
-s = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
+#s = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
 if username and password in open('passwords.txt').read():
     print("true")
+""""
 while password == 'lol':
     if s.find(str(username)) != -1:
         print("True")
     if s.find(str(password)) != 1:
         print("True")
 
-""""
+
 import hashlib ,os
 resource_file = "passwords.txt"
 def encode(username,password):
