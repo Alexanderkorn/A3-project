@@ -99,12 +99,6 @@ read()
 LARGE_FONT = ("Verdana", 12)
 # NORMAL_FONT = (tk.font('Verdana', 12, 'bold'))
 
-gifdir = "./"
-
-
-# igm = PhotoImage(file=gifdir+"logo.gif")
-
-
 class Gebruikersnaam(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
@@ -123,9 +117,7 @@ class Gebruikersnaam(tk.Frame):
         self.selectie_scherm_vak.configure(background="orange")
         label = tk.Label(self.selectie_scherm_vak, text="Bent u Leverancier of klant?", font="LARGE_FONT", background='orange')
         label.place(y=250, x=90)
-        igm = tk.PhotoImage(file=gifdir+"logo.gif")
         klant_button = tk.Button(self.selectie_scherm_vak, text="Klant", command=self.Naam_invoer, font=('Verdana', 10, 'bold'))
-
         klant_button.place(y=300, x=130)
         leverancier_button = tk.Button(self.selectie_scherm_vak, text="Leverancier", command=self.Leveranciersnaam_invoer, font=('Verdana', 10, 'bold'))
         leverancier_button.place(y=300, x=200)
