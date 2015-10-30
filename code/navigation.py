@@ -143,7 +143,8 @@ class PageOne(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="The Martian", font="LARGE_FONT")
+        global titels
+        label = tk.Label(self, text=titels[0], font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
         label = tk.Label(self, text="Kies één van de aanbieders", font="LARGE_FONT")
