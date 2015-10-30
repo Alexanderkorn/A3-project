@@ -10,62 +10,52 @@ import xmltodict
 import xml.dom.minidom
 from xml.dom.minidom import parse
 
-def read_xml():
-    file = open('data.xml', 'r')
-    # xml_string = file.read()
-    return xmltodict.parse(xml_string)
+def read():
+    global zenders_en_films
+    def read_xml():
+        file = open('data.xml','r')
+        xml_string = file.read()
+        return xmltodict.parse(xml_string)
+    global zenders, films
+    film_nummer = None
+    film_dict = read_xml()
+    nodes = parse('data.xml')
+    zenders=[]
+    films=[]
+    zenders_en_films = {}
 
-film_nummer = None
-# film_dict = read_xml()
-nodes = parse('data.xml')
+    for film_nummer in nodes.getElementsByTagName('film'):
 
-for film_nummer in nodes.getElementsByTagName('film'):
+        document = film_nummer.toxml()
+        dom = xml.dom.minidom.parseString(document)
 
-    document = film_nummer.toxml()
-    dom = xml.dom.minidom.parseString(document)
+        def getText(nodelist):
+            rc = []
+            for node in nodelist:
+                if node.nodeType == node.TEXT_NODE:
+                    rc.append(node.data)
+            return ''.join(rc)
 
-    def getText(nodelist):
-        rc = []
-        for node in nodelist:
-            if node.nodeType == node.TEXT_NODE:
-                rc.append(node.data)
-        return ''.join(rc)
+        def handleTok(tokenlist):
+            texts = ""
+            for token in tokenlist:
+                texts += ""+ getText(token.childNodes)
+            return texts
+        foo = dom.getElementsByTagName("zender")
+        text = handleTok(foo)
+        b =text.split()
+        zenders.extend(b)
+        bob = dom.getElementsByTagName("titel")
+        text2 = handleTok(bob)
+        c =text2.split("\n")
+        films.extend(c)
+    for i in range(len(zenders)):
+        if zenders[i] not in zenders_en_films:
+            zenders_en_films[zenders[i]]=films[i]
+        else:
+            zenders_en_films[zenders[i]+' 2e film']=films[i]
 
-    def handleTok(tokenlist):
-        texts = ""
-        for token in tokenlist:
-            texts += ""+ getText(token.childNodes)
-        return texts
-    import requests
-    global titels
-    covers = []
-    titels = []
-    foo = dom.getElementsByTagName("titel")
-    text = handleTok(foo)
-    b = text.split('\n')
-    titels.extend(b)
-    bob = dom.getElementsByTagName("cover")
-    text2 = handleTok(bob)
-    c = text2.split()
-    covers.extend(c)
-    x = 0
-    for i in covers:
-        try:
-            f = open(str(titels[x])+'.jpg','wb')
-            f.write(requests.get(i).content)
-        except:
-            sys.exit("Er is wat fout gegaan met het ophalen van de foto's")
-        x =+ 1
-    h = 0
-    for i in covers:
-        try:
-            img = Image.open(str(titels[h])+".jpg")
-            img_resized = img.resize((100,168), Image.ANTIALIAS)
-            img_resized.save(str(titels[h])+".jpg")
-        except:
-            sys.exit("Er is wat fout gegaan met het re-sizen van de foto's")
-        h =+ 1
-
+read()
 
 from tkinter import ttk
 
@@ -107,68 +97,81 @@ def qf(param):
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
+
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Home", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
-        global titels
 
-        img_button1 = ImageTk.PhotoImage(Image.open(str(titels[0])+".jpg"))
+
+
+        lijst_van_films = tk.Text(self, background='orange', font=('Verdana', 10, 'bold'))
+        weergave_films_gekozen_zender_lijst = []
+        weergave_films_gekozen_zender=""
+        lijst_van_films = tk.Listbox(self)
+
+        for i in zenders:
+            lijst_van_films.insert(tk.END, i)
+        lijst_van_films.place(height=100, width=250, y=240, x=75)
+        def nummer_leverancier():
+            global zenders
+            goede_nummer_leverancier = str(lijst_van_films.curselection())
+            index_goede_nummer_leverancier = int(goede_nummer_leverancier[1])
+            global zender_leverancier
+            zender_leverancier = zenders[index_goede_nummer_leverancier]
+            controller.show_frame(PageOne)
+        button = tk.Button(self, text="Verder", command=(lambda: nummer_leverancier()))
+        button.pack()
+        label = tk.Label(self, text="Deze films zijn op de zender :", font="LARGE_FONT", background='orange')
+        label.pack()
+
+class PageOne(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        global films, zenders_en_films
+        global zender_leverancier
+
+        zenders_en_films = {}
+
+
+        label = tk.Label(self, text=films[0], font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        label = tk.Label(self, text="Kies één van de films", font="LARGE_FONT")
+        label.pack(pady=10, padx=10)
+
+        # lijst_van_films = tk.Text(self, background='orange', font=('Verdana', 10, 'bold'))
+        weergave_films_gekozen_zender_lijst = []
+        weergave_films_gekozen_zender= ""
+        for i in zenders_en_films:
+            if i == zender_leverancier or i == zender_leverancier+' 2e film':
+                weergave_films_gekozen_zender_lijst.append(zenders_en_films[i])
+        for i in range(len(weergave_films_gekozen_zender_lijst)):
+            weergave_films_gekozen_zender += weergave_films_gekozen_zender_lijst[i] + '\n'
+        # lijst_van_films.insert(tk.INSERT, weergave_films_gekozen_zender)
+        # lijst_van_films.place(height=100, width=250)
+
+        img_button1 = ImageTk.PhotoImage(Image.open(str(films[0])+".jpg"))
 
         button1 = tk.Button(self, image=img_button1,
                             command=lambda: controller.show_frame(PageOne))
         button1.image=img_button1
         button1.pack()
 
-        button2 = ttk.Button(self, text="Kill Bill 2",
-                            command=lambda: controller.show_frame(PageTwo))
-        button2.pack()
-
-        button3 = ttk.Button(self, text="Star Wars: Episode IV",
-                            command=lambda: controller.show_frame(PageThree))
-        button3.pack()
-
-        button4 = ttk.Button(self, text="Limitless",
-                            command=lambda: controller.show_frame(PageFour))
-        button4.pack()
-
-        button5 = ttk.Button(self, text="007: Spectre",
-                            command=lambda: controller.show_frame(PageFive))
-        button5.pack()
-
-        button6 = ttk.Button(self, text="Back to the future",
-                            command=lambda: controller.show_frame(PageSix))
-        button6.pack()
-
-class PageOne(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        global titels
-        label = tk.Label(self, text=titels[0], font="LARGE_FONT")
-        label.pack(pady=10, padx=10)
-
-        label = tk.Label(self, text="Kies één van de aanbieders", font="LARGE_FONT")
-        label.pack(pady=10, padx=10)
-
-        leverancier_lijst = tk.Listbox(self)
-        f = ["Piet", "Jan", "Hendrik", "Hugo"]
-
-        for i in f:
-            leverancier_lijst.insert(tk.END, i)
-
-        leverancier_lijst.pack(pady=15, padx=15)
-
-        button1 = ttk.Button(self, text="Terug naar home",
+        button7 = ttk.Button(self, text="Terug naar home",
                             command=lambda: controller.show_frame(StartPage))
-        button1.pack(pady=2, padx=2)
+        button7.pack(pady=2, padx=2)
 
-        button2 = ttk.Button(self, text="Inschrijven",
-                             command=lambda: controller.show_frame(Verify1))
-        button2.pack(pady=2, padx=2)
+        button8 = ttk.Button(self, text="Inschrijven",
+                             command=lambda: nummer_leverancier())
+        button8.pack(pady=2, padx=2)
+
+
 
 class Verify1(tk.Frame):
 
     def end_choice1(self):
+        controller.show_frame(Complete)
         print("U heeft gekozen voor The Martian")
 
     def __init__(self, parent, controller):
@@ -177,7 +180,7 @@ class Verify1(tk.Frame):
         label.pack(pady=10, padx=10)
 
         button1 = ttk.Button(self, text="Ja",
-                            command=lambda: controller.show_frame(Complete)+PageOne.end_choice1(self))
+                            command=lambda: end_choice1())
         button1.pack()
 
         button2 = ttk.Button(self, text="Nee",
