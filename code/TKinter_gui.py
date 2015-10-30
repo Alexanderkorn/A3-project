@@ -124,30 +124,6 @@ class Gebruikersnaam(tk.Frame):
         tk.Frame.__init__(self, master)
         self.pack()
         self.Selectie_scherm()
-        #
-        #test voor inlog
-        #
-        self.label_1 = tk.Label(self, text="Username")
-        self.label_2 = tk.Label(self, text="Password")
-
-        self.entry_1 = tk.Entry(self)
-        self.entry_2 = tk.Entry(self, show="*")
-
-        self.label_1.grid(row=0, sticky=tk.E)
-        self.label_2.grid(row=1, sticky=tk.E)
-        self.entry_1.grid(row=0, column=1)
-        self.entry_2.grid(row=1, column=1)
-
-        self.checkbox = tk.Checkbutton(self, text="Keep me logged in")
-        self.checkbox.grid(columnspan=2)
-
-        self.logbtn = tk.Button(self, text="Login", command = self._login_btn_clickked)
-        self.logbtn.grid(columnspan=2)
-
-        self.pack()
-        #
-        #Einde test
-        #
 
     def Selectie_scherm(self):
         self.selectie_scherm_vak = tk.Tk()
@@ -204,55 +180,39 @@ class Gebruikersnaam(tk.Frame):
 
     def check_login(self):
         global zenders
-        self.selectie_scherm_vak.destroy()
-        self.leverancier_invoer_vak = tk.Tk()
+        self.leverancier_invoer_vak.destroy()
+        self.check_login_vak = tk.Tk()
         w = 400
         h = 650
-        ws = self.leverancier_invoer_vak.winfo_screenwidth()
-        hs = self.leverancier_invoer_vak.winfo_screenheight()
+        ws = self.check_login_vak.winfo_screenwidth()
+        hs = self.check_login_vak.winfo_screenheight()
         x = (ws/2) - (w/2)
         y = (hs/2) - (h/2)
-        self.leverancier_invoer_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
-        self.leverancier_invoer_vak.configure(background="orange")
-        label = tk.Label(self.leverancier_invoer_vak, text="Welke zender wordt laten zien?", font="LARGE_FONT", background='orange')
-        label.place(y=150, x=65)
-        leverancier_lijst = tk.Listbox(self.leverancier_invoer_vak)
-        f = []
-        def _login_btn_clickked(self):
-            #print("Clicked")
-            username = self.entry_1.get()
-            password = self.entry_2.get()
+        self.check_login_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        self.check_login_vak.configure(background="orange")
+        label = tk.Label(self.check_login_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
 
-            if username and password in open('passwords.txt').read():
-                tm.showinfo("Login info", "Welcome "+username)
-                self.Weergave_van_eigen_films()
-            else:
-                tm.showerror("Login error", "Incorrect username")
+        label_naam = tk.Label(self.check_login_vak, text="Username", background="orange")
+        label_naam.place(y=350, x=100)
+        self.check_login = tk.Entry(self.check_login_vak)
+        self.check_login.place(y=300, x=160)
+        label.place(y=230, x=105)
+        username=zenders
+        #print("Clicked")
+        #username = self.entry_1.get()
+        password = ""
 
-        for i in zenders:
-            while i not in f:
-                f.append(i)
-
-        for i in f:
-            leverancier_lijst.insert(tk.END, i)
-
-        leverancier_lijst.place(y=200, x=135)
-        quit_button = tk.Button(self.leverancier_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
-        quit_button.place(y=380, x=195)
-        def nummer_leverancier():
-            goede_nummer_leverancier = str(leverancier_lijst.curselection())
-            index_goede_nummer_leverancier = int(goede_nummer_leverancier[1])
-            global zender_leverancier
-            zender_leverancier = zenders[index_goede_nummer_leverancier]
-            #self.check_login()
-            self.Weergave_van_eigen_films()
-        verder_button = tk.Button(self.leverancier_invoer_vak, text="Verder", command=(lambda: nummer_leverancier()), font=('Verdana', 10, 'bold'))
+        if username and password in open('passwords.txt').read():
+            tk.messagebox("Login info", "Welcome "+username)
+        else:
+            tk.messagebox("Login error", "Incorrect username")
+        #goed
+        verder_button = tk.Button(self.check_login_vak, text="Verder", command=(lambda: None), font=('Verdana', 10, 'bold'))
         verder_button.place(y=380, x=130)
-        quit_button = tk.Button(self.leverancier_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
-        quit_button.place(y=420, x=160)
-        terug_button = tk.Button(self.leverancier_invoer_vak, text="Terug", command=self.Selectie_scherm, font=('Verdana', 10, 'bold'))
-        terug_button.place(y=380, x=195)
-        self.leverancier_invoer_vak.mainloop()
+        quit_button = tk.Button(self.check_login_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
+        quit_button.place(y=380, x=195)
+
+        self.check_login_vak.mainloop()
 
 
     def Weergave_van_eigen_films(self):
@@ -360,15 +320,12 @@ class Gebruikersnaam(tk.Frame):
         label_emailadres = tk.Label(self.email_invoer_vak, text="Uw E-mailadres: ", background="orange", font=('Verdana', 10))
         label_emailadres.place(y=300, x=55)
         self.emailadres_invoer = tk.Entry(self.email_invoer_vak)
-<<<<<<< Updated upstream
         self.emailadres_invoer.bind('<Return>', lambda: self.Open_menu())
         self.emailadres_invoer.place(y=300, x=170)
         verder_button = tk.Button(self.email_invoer_vak, text="Verder", command=(lambda: self.Open_menu()), font=('Verdana', 10, 'bold'))
-=======
         self.emailadres_invoer.bind('<Return>', lambda: self.datum_invoer())
         self.emailadres_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.email_invoer_vak, text="Verder", command=(lambda: self.datum_invoer()), font=('Verdana', 10, 'bold'))
->>>>>>> Stashed changes
         verder_button.place(y=350, x=130)
         quit_button = tk.Button(self.email_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
         quit_button.place(y=350, x=195)
