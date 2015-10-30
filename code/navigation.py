@@ -2,7 +2,8 @@ __author__ = 'Giuliano'
 
 import tkinter as tk
 from tkinter import *
-
+import sys
+from PIL import ImageTk, Image
 #bron: http://stackoverflow.com/questions/6653128/getting-text-between-xml-tags-with-minidom
 
 import xmltodict
@@ -35,9 +36,35 @@ for film_nummer in nodes.getElementsByTagName('film'):
         for token in tokenlist:
             texts += ""+ getText(token.childNodes)
         return texts
+    import requests
+    global titels
+    covers = []
+    titels = []
     foo = dom.getElementsByTagName("titel")
     text = handleTok(foo)
-
+    b = text.split('\n')
+    titels.extend(b)
+    bob = dom.getElementsByTagName("cover")
+    text2 = handleTok(bob)
+    c = text2.split()
+    covers.extend(c)
+    x = 0
+    for i in covers:
+        try:
+            f = open(str(titels[x])+'.jpg','wb')
+            f.write(requests.get(i).content)
+        except:
+            sys.exit("Er is wat fout gegaan met het ophalen van de foto's")
+        x =+ 1
+    h = 0
+    for i in covers:
+        try:
+            img = Image.open(str(titels[h])+".jpg")
+            img_resized = img.resize((100,168), Image.ANTIALIAS)
+            img_resized.save(str(titels[h])+".jpg")
+        except:
+            sys.exit("Er is wat fout gegaan met het re-sizen van de foto's")
+        h =+ 1
 
 
 from tkinter import ttk
@@ -83,15 +110,13 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Home", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
-        gifdir = "./"
+        global titels
 
-        img = tk.PhotoImage(file=gifdir+"poster.gif")
-        # tk.Button(self, image=igm).pack()
+        img_button1 = ImageTk.PhotoImage(Image.open(str(titels[0])+".jpg"))
 
-
-        button1 = tk.Button(self, image=img,
+        button1 = tk.Button(self, image=img_button1,
                             command=lambda: controller.show_frame(PageOne))
-        button1.image=img
+        button1.image=img_button1
         button1.pack()
 
         button2 = ttk.Button(self, text="Kill Bill 2",
