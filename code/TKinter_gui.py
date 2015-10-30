@@ -209,7 +209,7 @@ class Gebruikersnaam(tk.Frame):
         #goed
         verder_button = tk.Button(self.check_login_vak, text="Verder", command=(lambda: None), font=('Verdana', 10, 'bold'))
         verder_button.place(y=380, x=130)
-        quit_button = tk.Button(self.check_login_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
+        quit_button = tk.Button(self.check_login_vak, text="Afsluiten", command=(lambda: quit_button), font=('Verdana', 10, 'bold'))
         quit_button.place(y=380, x=195)
 
         self.check_login_vak.mainloop()
