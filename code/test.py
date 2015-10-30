@@ -32,7 +32,7 @@ def achternamen(row1, row2):
     try:
         f.close()
     except:
-        print("Bestandt kon niet gesloten worden")
+        print("Bestand kon niet gesloten worden")
 
 achternamen(4, 1)
 achternamen(1, 4)
