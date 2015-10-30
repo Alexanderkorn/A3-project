@@ -5,12 +5,10 @@ import xml.dom.minidom
 from xml.dom.minidom import parse
 import csv
 
-
-
 window = tk.Tk()
 window.withdraw()
 
-def ticket(naam, achternaam, emailadres):
+def ticket():
     """
 
     Eerst import de functie de benodigde functies.
@@ -26,7 +24,6 @@ def ticket(naam, achternaam, emailadres):
 
 
     try:
-        global ticket
         ticket = randint(0,999999999)
     except:
         sys.exit("Er is wat fout gegaan met het ticket nummer aanmaken.")
@@ -35,7 +32,7 @@ def ticket(naam, achternaam, emailadres):
     try:
         with open('database.csv', 'a') as csvfile:
              writer = csv.writer(csvfile, delimiter=';', dialect='excel', lineterminator='\n')
-             writer.writerow([naam, achternaam, emailadres, str(ticket)])
+             writer.writerow([App.naam, App.achternaam, App.emailadres, str(ticket)])
 
     except:
         sys.exit("Er is wat mis gegaan met het openen en of het schrijven van de database")
@@ -102,6 +99,12 @@ read()
 LARGE_FONT = ("Verdana", 12)
 # NORMAL_FONT = (tk.font('Verdana', 12, 'bold'))
 
+gifdir = "./"
+
+
+# igm = PhotoImage(file=gifdir+"logo.gif")
+
+
 class Gebruikersnaam(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
@@ -119,11 +122,13 @@ class Gebruikersnaam(tk.Frame):
         self.selectie_scherm_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.selectie_scherm_vak.configure(background="orange")
         label = tk.Label(self.selectie_scherm_vak, text="Bent u Leverancier of klant?", font="LARGE_FONT", background='orange')
-        label.place(y=250, x=80)
+        label.place(y=250, x=90)
+        igm = tk.PhotoImage(file=gifdir+"logo.gif")
         klant_button = tk.Button(self.selectie_scherm_vak, text="Klant", command=self.Naam_invoer, font=('Verdana', 10, 'bold'))
-        klant_button.place(y=300, x=120)
+
+        klant_button.place(y=300, x=130)
         leverancier_button = tk.Button(self.selectie_scherm_vak, text="Leverancier", command=self.Leveranciersnaam_invoer, font=('Verdana', 10, 'bold'))
-        leverancier_button.place(y=300, x=190)
+        leverancier_button.place(y=300, x=200)
         self.selectie_scherm_vak.mainloop()
 
     def Leveranciersnaam_invoer(self):
@@ -149,7 +154,10 @@ class Gebruikersnaam(tk.Frame):
 
         for i in f:
             leverancier_lijst.insert(tk.END, i)
+
         leverancier_lijst.place(y=200, x=135)
+        quit_button = tk.Button(self.leverancier_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
+        quit_button.place(y=380, x=195)
         def nummer_leverancier():
             goede_nummer_leverancier = str(leverancier_lijst.curselection())
             index_goede_nummer_leverancier = int(goede_nummer_leverancier[1])
@@ -158,10 +166,6 @@ class Gebruikersnaam(tk.Frame):
             self.Weergave_van_eigen_films()
         verder_button = tk.Button(self.leverancier_invoer_vak, text="Verder", command=(lambda: nummer_leverancier()), font=('Verdana', 10, 'bold'))
         verder_button.place(y=380, x=130)
-        quit_button = tk.Button(self.leverancier_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
-        quit_button.place(y=420, x=160)
-        terug_button = tk.Button(self.leverancier_invoer_vak, text="Terug", command=self.Selectie_scherm, font=('Verdana', 10, 'bold'))
-        terug_button.place(y=380, x=195)
         self.leverancier_invoer_vak.mainloop()
 
     def Weergave_van_eigen_films(self):
@@ -177,7 +181,7 @@ class Gebruikersnaam(tk.Frame):
         y = (hs/2) - (h/2)
         self.filmweergave_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.filmweergave_vak.configure(background="orange")
-        lijst_van_films = tk.Text(self.filmweergave_vak, background='orange', font=('Verdana', 10))
+        lijst_van_films = tk.Text(self.filmweergave_vak, background='orange', font=('Verdana', 10, 'bold'))
         weergave_films_gekozen_zender_lijst = []
         weergave_films_gekozen_zender= ""
         for i in zenders_en_films:
@@ -210,11 +214,11 @@ class Gebruikersnaam(tk.Frame):
         self.voornaam_invoer_vak.configure(background="orange")
         label = tk.Label(self.voornaam_invoer_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
         label.place(y=230, x=105)
-        label_naam = tk.Label(self.voornaam_invoer_vak, text="Uw naam: ", background="orange", font=('Verdana', 10))
+        label_naam = tk.Label(self.voornaam_invoer_vak, text="Uw naam: ", background="orange")
         label_naam.place(y=300, x=100)
         naam_invoer = tk.Entry(self.voornaam_invoer_vak)
         naam_invoer.bind('<Return>', lambda event: self.Achternaam_invoer(naam_invoer.get()))
-        naam_invoer.place(y=300, x=170)
+        naam_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.voornaam_invoer_vak, text="Verder", command=(lambda: self.Achternaam_invoer(naam_invoer.get())), font=('Verdana', 10, 'bold'))
         verder_button.place(y=350, x=130)
         quit_button = tk.Button(self.voornaam_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
@@ -238,11 +242,11 @@ class Gebruikersnaam(tk.Frame):
         self.achternaam_invoer_vak.configure(background="orange")
         label = tk.Label(self.achternaam_invoer_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
         label.place(y=230, x=105)
-        label_naam = tk.Label(self.achternaam_invoer_vak, text="Uw achternaam: ", background="orange", font=('Verdana', 10))
+        label_naam = tk.Label(self.achternaam_invoer_vak, text="Uw achternaam: ", background="orange")
         label_naam.place(y=300, x=65)
         achternaam_invoer = tk.Entry(self.achternaam_invoer_vak)
         achternaam_invoer.bind('<Return>', lambda event: self.Email_invoer(achternaam_invoer.get()))
-        achternaam_invoer.place(y=300, x=180)
+        achternaam_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.achternaam_invoer_vak, text="Verder", command=(lambda: self.Email_invoer(achternaam_invoer.get())), font=('Verdana', 10, 'bold'))
         verder_button.place(y=350, x=130)
         quit_button = tk.Button(self.achternaam_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
@@ -266,11 +270,11 @@ class Gebruikersnaam(tk.Frame):
         self.email_invoer_vak.configure(background="orange")
         label = tk.Label(self.email_invoer_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
         label.place(y=230, x=105)
-        label_emailadres = tk.Label(self.email_invoer_vak, text="Uw E-mailadres: ", background="orange", font=('Verdana', 10))
-        label_emailadres.place(y=300, x=55)
+        label_emailadres = tk.Label(self.email_invoer_vak, text="Uw E-mailadres: ", background="orange")
+        label_emailadres.place(y=300, x=65)
         self.emailadres_invoer = tk.Entry(self.email_invoer_vak)
         self.emailadres_invoer.bind('<Return>', lambda: self.Open_menu())
-        self.emailadres_invoer.place(y=300, x=170)
+        self.emailadres_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.email_invoer_vak, text="Verder", command=(lambda: self.Open_menu()), font=('Verdana', 10, 'bold'))
         verder_button.place(y=350, x=130)
         quit_button = tk.Button(self.email_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
@@ -280,7 +284,6 @@ class Gebruikersnaam(tk.Frame):
 
     def Open_menu(self):
         self.Exit_program(self.emailadres_invoer.get())
-        ticket(self.naam, self.achternaam, self.emailadres)
         from navigation import ThuisBioscoop #kan beter maar hij opent bij importeren
 
     def Exit_program(self, emailadres):
@@ -297,6 +300,6 @@ class Gebruikersnaam(tk.Frame):
 
 App = Gebruikersnaam(master=window)
 App.mainloop()
-
+ticket()
 
 # ticket nummer in  window
