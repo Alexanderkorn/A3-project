@@ -1,85 +1,38 @@
-__author__ = 'Roy'
-#bron: http://stackoverflow.com/questions/6653128/getting-text-between-xml-tags-with-minidom
-
-import xmltodict
-import xml.dom.minidom
+__author__ = 'Roy', 'Mike'
 import csv
-from xml.dom.minidom import parse
 
-def read_xml():
-    file = open('data.xml','r')
-    xml_string = file.read()
-    return xmltodict.parse(xml_string)
+def achternamen(row1, row2):
+    #database.csv wordt geopend en in reader gezet
+    try:
+        f=open('database.csv','r')
+        reader=csv.reader(f, delimiter=';')
+    except:
+        exit("'database.csv' kon niet geopend worden")
 
-film_nummer = None
-film_dict = read_xml()
-nodes = parse('data.xml')
+    #Row[row1] en row[row2] worden in een lijst gezet
+    try:
+        x=0
+        list=[]
+        for row in reader:
 
-for film_nummer in nodes.getElementsByTagName('film'):
+            if x == 0:
+                x=1
+                pass
 
-    document = film_nummer.toxml()
-    dom = xml.dom.minidom.parseString(document)
+            else:
+                a = row[row1]
+                b = row[row2]
+                c = a , b
+                list.append(c)
 
-    def getText(nodelist):
-        rc = []
-        for node in nodelist:
-            if node.nodeType == node.TEXT_NODE:
-                rc.append(node.data)
-        return ''.join(rc)
+        print (sorted(list))
+    except:
+        exit("Lijst kon niet worden gemaakt")
+    #f wordt gesloten
+    try:
+        f.close()
+    except:
+        print("Bestandt kon niet gesloten worden")
 
-    def handleTok(tokenlist):
-        texts = ""
-        for token in tokenlist:
-            texts += ""+ getText(token.childNodes)
-        return texts
-    foo = dom.getElementsByTagName("starttijd")
-    text = handleTok(foo)
-
-    bob = dom.getElementsByTagName("titel")
-    text2 = handleTok(bob)
-    print(text, text2)
-
-
-
-
-def achternamen():
-    q=open('database.csv','r')
-    reader=csv.reader(q, delimiter=';')
-    x=0
-    list2=[]
-    for row in reader:
-        if x == 0:
-            x=1
-            pass
-        else:
-            d = row[4]
-            e = row[1]
-            g = d , e
-            list2.append(g)
-            #list.extend(d)
-    print (sorted(list2))
-    #print(sorted(list, reverse=True))
-    q.close()
-    #zsdfghjkl;
-
-
-    f=open('database.csv','r')
-    reader=csv.reader(f, delimiter=';')
-    x=0
-    list=[]
-    for row in reader:
-        if x == 0:
-            x=1
-            pass
-        else:
-            b = row[4]
-            a = row[1]
-
-            c = a  , b
-            list.append(c)
-    print(sorted(list))
-
-    f.close
-
-
-achternamen()
+achternamen(4, 1)
+achternamen(1, 4)
