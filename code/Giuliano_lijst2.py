@@ -39,7 +39,7 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Home", font="LARGE_FONT")
         label.pack(pady=10, padx=10)
 
-        igm = tk.PhotoImage(file="./poster.gif")
+        igm = tk.PhotoImage(file="./poster.jpg")
 
         button1 = ttk.Button(self, text="The Martian", image=igm,
                             command=lambda: controller.show_frame(PageOne))
