@@ -1,121 +1,97 @@
-__author__ = 'alexander'
 import tkinter as tk
-import tkinter.messagebox as tm
 import sys
+import xmltodict
 import xml.dom.minidom
 from xml.dom.minidom import parse
-from random import randint
 import csv
-
 
 window = tk.Tk()
 window.withdraw()
 
-def ticket(naam, achternaam, emailadres, film):
+def ticket():
+    """
+    Eerst import de functie de benodigde functies.
+    Dan wordt er een ticket nummer aangemaakt
+    """
+    try:
+        import csv
+        from random import randint
+    except:
+        sys.exit("Er is wat fout gegaan met importeren van de functies.")
+
+
 
     try:
-        #Er wordt een ticket nummer aangemaakt
-
         ticket = randint(0,999999999)
     except:
         sys.exit("Er is wat fout gegaan met het ticket nummer aanmaken.")
 
 
     try:
-        #input in variabelen zetten(In in kleine letters)
-        a=str(naam).lower()
-        b=str(achternaam).lower()
-        c=str(emailadres).lower()
-        #read_xml() functie gebruiken, en tag3 als input. De 0 houd in dat text1 wordt gereturnd
-        d=read_xml("titel","starttijd", film, 0)
-        #read_xml() functie gebruiken en tag3 als input d. De 1 houd in dat text2 wordt gereturnd
-        e=read_xml("titel","starttijd",d , 1)
-
-        #database.csv wordt geopend en de data wordt weg geschreven.
         with open('database.csv', 'a') as csvfile:
-            writer = csv.writer(csvfile, delimiter=';', dialect='excel', lineterminator='\n')
-            writer.writerow([a,b,c,d,e,str(ticket).lower()])
+             writer = csv.writer(csvfile, delimiter=';', dialect='excel', lineterminator='\n')
+             writer.writerow([App.naam, App.achternaam, App.emailadres, str(ticket)])
 
     except:
         sys.exit("Er is wat mis gegaan met het openen en of het schrijven van de database")
 
 
     try:
-        #ticket nummer wordt terug gegeven.
         print("Uw ticket nummer is : "+str(ticket))
     except:
         sys.exit("Er is wat fout gegaan met het ticket nummer printen.")
 
-def read_xml(tag1, tag2="", tag3=None, tag4=None, tag5='film'):
-
-    try:
-        global zenders
-        global zenders_en_films
+#bron: http://stackoverflow.com/questions/6653128/getting-text-between-xml-tags-with-minidom
 
 
+def read():
+    global zenders
+    global zenders_en_films
+    def read_xml():
+        file = open('data.xml','r')
+        xml_string = file.read()
+        return xmltodict.parse(xml_string)
 
-        nodes = parse('data.xml')
-        zenders=[]
-        films=[]
-        zenders_en_films = {}
+    film_nummer = None
+    film_dict = read_xml()
+    nodes = parse('data.xml')
+    zenders=[]
+    films=[]
+    zenders_en_films = {}
 
-            #tag3(standaard 'film') zijn de tags die uit 'data.xml' worden gehaalt
-        for film_nummer in nodes.getElementsByTagName(tag5):
+    for film_nummer in nodes.getElementsByTagName('film'):
 
-            #magie
-            def getText(nodelist):
-                rc = []
-                for node in nodelist:
-                    if node.nodeType == node.TEXT_NODE:
-                        rc.append(node.data)
-                return ''.join(rc)
+        document = film_nummer.toxml()
+        dom = xml.dom.minidom.parseString(document)
 
-            def handleTok(tokenlist):
-                texts = ""
-                for token in tokenlist:
-                    texts += ""+ getText(token.childNodes)
-                return texts
+        def getText(nodelist):
+            rc = []
+            for node in nodelist:
+                if node.nodeType == node.TEXT_NODE:
+                    rc.append(node.data)
+            return ''.join(rc)
 
-            document = film_nummer.toxml()
-            dom = xml.dom.minidom.parseString(document)
+        def handleTok(tokenlist):
+            texts = ""
+            for token in tokenlist:
+                texts += ""+ getText(token.childNodes)
+            return texts
+        foo = dom.getElementsByTagName("zender")
+        text = handleTok(foo)
+        b =text.split()
+        zenders.extend(b)
+        bob = dom.getElementsByTagName("titel")
 
-            #De text tussen tag 1 wordt in text1 gezet
-            text1 = handleTok(dom.getElementsByTagName(tag1))
-            #De text tussen tag 2 wordt in text2 gezet
-            text2 = handleTok(dom.getElementsByTagName(tag2))
-            if tag3 in text1:
-                #Als tag 4 0 is dan wordt text1 gereturnd
-                if tag4 == 0:
-                    return text1
-                #Als tag 4 1 is dan wordt text2 gereturnd
-                elif tag4 == 1:
-                    return text2
-                else:
-                   pass
-            else:
-                pass
+        text2 = handleTok(bob)
+        c =text2.split("\n")
+        films.extend(c)
+    for i in range(len(zenders)):
+        if zenders[i] not in zenders_en_films:
+            zenders_en_films[zenders[i]]=films[i]
+        else:
+            zenders_en_films[zenders[i]+' 2e film']=films[i]
 
-            if tag4 == "1":
-                foo = dom.getElementsByTagName("zender")
-                text = handleTok(foo)
-                b =text.split()
-                zenders.extend(b)
-                bob = dom.getElementsByTagName("titel")
-
-                text2 = handleTok(bob)
-                c =text2.split("\n")
-                films.extend(c)
-        if tag4 == "1":
-            for i in range(len(zenders)):
-                if zenders[i] not in zenders_en_films:
-                    zenders_en_films[zenders[i]]=films[i]
-                else:
-                    zenders_en_films[zenders[i]+' 2e film']=films[i]
-                #print(text) # output zenders. read() is nodig om dit te laten werken
-    except:
-        exit("Read_xml didn't work")
-
-read_xml("","" , "" ,"1")
+read()
 
 LARGE_FONT = ("Verdana", 12)
 # NORMAL_FONT = (tk.font('Verdana', 12, 'bold'))
@@ -125,30 +101,6 @@ class Gebruikersnaam(tk.Frame):
         tk.Frame.__init__(self, master)
         self.pack()
         self.Selectie_scherm()
-        #
-        #test voor inlog
-        #
-        self.label_1 = tk.Label(self, text="Username")
-        self.label_2 = tk.Label(self, text="Password")
-
-        self.entry_1 = tk.Entry(self)
-        self.entry_2 = tk.Entry(self, show="*")
-
-        self.label_1.grid(row=0, sticky=tk.E)
-        self.label_2.grid(row=1, sticky=tk.E)
-        self.entry_1.grid(row=0, column=1)
-        self.entry_2.grid(row=1, column=1)
-
-        self.checkbox = tk.Checkbutton(self, text="Keep me logged in")
-        self.checkbox.grid(columnspan=2)
-
-        self.logbtn = tk.Button(self, text="Login", command = self._login_btn_clickked)
-        self.logbtn.grid(columnspan=2)
-
-        self.pack()
-        #
-        #Einde test
-        #
 
     def Selectie_scherm(self):
         self.selectie_scherm_vak = tk.Tk()
@@ -161,11 +113,11 @@ class Gebruikersnaam(tk.Frame):
         self.selectie_scherm_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.selectie_scherm_vak.configure(background="orange")
         label = tk.Label(self.selectie_scherm_vak, text="Bent u Leverancier of klant?", font="LARGE_FONT", background='orange')
-        label.place(y=250, x=80)
+        label.place(y=250, x=90)
         klant_button = tk.Button(self.selectie_scherm_vak, text="Klant", command=self.Naam_invoer, font=('Verdana', 10, 'bold'))
-        klant_button.place(y=300, x=120)
+        klant_button.place(y=300, x=130)
         leverancier_button = tk.Button(self.selectie_scherm_vak, text="Leverancier", command=self.Leveranciersnaam_invoer, font=('Verdana', 10, 'bold'))
-        leverancier_button.place(y=300, x=190)
+        leverancier_button.place(y=300, x=200)
         self.selectie_scherm_vak.mainloop()
 
     def Leveranciersnaam_invoer(self):
@@ -191,51 +143,6 @@ class Gebruikersnaam(tk.Frame):
 
         for i in f:
             leverancier_lijst.insert(tk.END, i)
-        leverancier_lijst.place(y=200, x=135)
-        def nummer_leverancier():
-            goede_nummer_leverancier = str(leverancier_lijst.curselection())
-            index_goede_nummer_leverancier = int(goede_nummer_leverancier[1])
-            global zender_leverancier
-            zender_leverancier = zenders[index_goede_nummer_leverancier]
-            self.check_login()
-            #self.Weergave_van_eigen_films()
-        verder_button = tk.Button(self.leverancier_invoer_vak, text="Verder", command=(lambda: nummer_leverancier()), font=('Verdana', 10, 'bold'))
-        verder_button.place(y=380, x=130)
-        self.leverancier_invoer_vak.mainloop()
-
-    def check_login(self):
-        global zenders
-        self.selectie_scherm_vak.destroy()
-        self.leverancier_invoer_vak = tk.Tk()
-        w = 400
-        h = 650
-        ws = self.leverancier_invoer_vak.winfo_screenwidth()
-        hs = self.leverancier_invoer_vak.winfo_screenheight()
-        x = (ws/2) - (w/2)
-        y = (hs/2) - (h/2)
-        self.leverancier_invoer_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
-        self.leverancier_invoer_vak.configure(background="orange")
-        label = tk.Label(self.leverancier_invoer_vak, text="Welke zender wordt laten zien?", font="LARGE_FONT", background='orange')
-        label.place(y=150, x=65)
-        leverancier_lijst = tk.Listbox(self.leverancier_invoer_vak)
-        f = []
-        def _login_btn_clickked(self):
-            #print("Clicked")
-            username = self.entry_1.get()
-            password = self.entry_2.get()
-
-            if username and password in open('passwords.txt').read():
-                tm.showinfo("Login info", "Welcome "+username)
-                self.Weergave_van_eigen_films()
-            else:
-                tm.showerror("Login error", "Incorrect username")
-
-        for i in zenders:
-            while i not in f:
-                f.append(i)
-
-        for i in f:
-            leverancier_lijst.insert(tk.END, i)
 
         leverancier_lijst.place(y=200, x=135)
         quit_button = tk.Button(self.leverancier_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
@@ -245,16 +152,10 @@ class Gebruikersnaam(tk.Frame):
             index_goede_nummer_leverancier = int(goede_nummer_leverancier[1])
             global zender_leverancier
             zender_leverancier = zenders[index_goede_nummer_leverancier]
-            #self.check_login()
             self.Weergave_van_eigen_films()
         verder_button = tk.Button(self.leverancier_invoer_vak, text="Verder", command=(lambda: nummer_leverancier()), font=('Verdana', 10, 'bold'))
         verder_button.place(y=380, x=130)
-        quit_button = tk.Button(self.leverancier_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
-        quit_button.place(y=420, x=160)
-        terug_button = tk.Button(self.leverancier_invoer_vak, text="Terug", command=self.Selectie_scherm, font=('Verdana', 10, 'bold'))
-        terug_button.place(y=380, x=195)
         self.leverancier_invoer_vak.mainloop()
-
 
     def Weergave_van_eigen_films(self):
         global zenders_en_films
@@ -269,7 +170,7 @@ class Gebruikersnaam(tk.Frame):
         y = (hs/2) - (h/2)
         self.filmweergave_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.filmweergave_vak.configure(background="orange")
-        lijst_van_films = tk.Text(self.filmweergave_vak, background='orange', font=('Verdana', 10))
+        lijst_van_films = tk.Text(self.filmweergave_vak, background='orange', font=('Verdana', 10, 'bold'))
         weergave_films_gekozen_zender_lijst = []
         weergave_films_gekozen_zender= ""
         for i in zenders_en_films:
@@ -302,11 +203,11 @@ class Gebruikersnaam(tk.Frame):
         self.voornaam_invoer_vak.configure(background="orange")
         label = tk.Label(self.voornaam_invoer_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
         label.place(y=230, x=105)
-        label_naam = tk.Label(self.voornaam_invoer_vak, text="Uw naam: ", background="orange", font=('Verdana', 10))
+        label_naam = tk.Label(self.voornaam_invoer_vak, text="Uw naam: ", background="orange")
         label_naam.place(y=300, x=100)
         naam_invoer = tk.Entry(self.voornaam_invoer_vak)
-        naam_invoer.bind('<Return>', lambda event: self.Achternaam_invoer(naam_invoer.get()))
-        naam_invoer.place(y=300, x=170)
+        naam_invoer.bind('<Return>', lambda: self.Achternaam_invoer(naam_invoer.get()))
+        naam_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.voornaam_invoer_vak, text="Verder", command=(lambda: self.Achternaam_invoer(naam_invoer.get())), font=('Verdana', 10, 'bold'))
         verder_button.place(y=350, x=130)
         quit_button = tk.Button(self.voornaam_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
@@ -330,11 +231,11 @@ class Gebruikersnaam(tk.Frame):
         self.achternaam_invoer_vak.configure(background="orange")
         label = tk.Label(self.achternaam_invoer_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
         label.place(y=230, x=105)
-        label_naam = tk.Label(self.achternaam_invoer_vak, text="Uw achternaam: ", background="orange", font=('Verdana', 10))
+        label_naam = tk.Label(self.achternaam_invoer_vak, text="Uw achternaam: ", background="orange")
         label_naam.place(y=300, x=65)
         achternaam_invoer = tk.Entry(self.achternaam_invoer_vak)
-        achternaam_invoer.bind('<Return>', lambda event: self.Email_invoer(achternaam_invoer.get()))
-        achternaam_invoer.place(y=300, x=180)
+        achternaam_invoer.bind('<Return>', lambda: self.Email_invoer(achternaam_invoer.get()))
+        achternaam_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.achternaam_invoer_vak, text="Verder", command=(lambda: self.Email_invoer(achternaam_invoer.get())), font=('Verdana', 10, 'bold'))
         verder_button.place(y=350, x=130)
         quit_button = tk.Button(self.achternaam_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
@@ -358,72 +259,27 @@ class Gebruikersnaam(tk.Frame):
         self.email_invoer_vak.configure(background="orange")
         label = tk.Label(self.email_invoer_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
         label.place(y=230, x=105)
-        label_emailadres = tk.Label(self.email_invoer_vak, text="Uw E-mailadres: ", background="orange", font=('Verdana', 10))
-        label_emailadres.place(y=300, x=55)
+        label_emailadres = tk.Label(self.email_invoer_vak, text="Uw E-mailadres: ", background="orange")
+        label_emailadres.place(y=300, x=65)
         self.emailadres_invoer = tk.Entry(self.email_invoer_vak)
-<<<<<<< Updated upstream
         self.emailadres_invoer.bind('<Return>', lambda: self.Open_menu())
-        self.emailadres_invoer.place(y=300, x=170)
-        verder_button = tk.Button(self.email_invoer_vak, text="Verder", command=(lambda: self.Open_menu()), font=('Verdana', 10, 'bold'))
-=======
-        self.emailadres_invoer.bind('<Return>', lambda: self.datum_invoer())
         self.emailadres_invoer.place(y=300, x=160)
-        verder_button = tk.Button(self.email_invoer_vak, text="Verder", command=(lambda: self.datum_invoer()), font=('Verdana', 10, 'bold'))
->>>>>>> Stashed changes
+        verder_button = tk.Button(self.email_invoer_vak, text="Verder", command=(lambda: self.Open_menu()), font=('Verdana', 10, 'bold'))
         verder_button.place(y=350, x=130)
         quit_button = tk.Button(self.email_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
         quit_button.place(y=350, x=195)
         self.email_invoer_vak.mainloop()
         return self.emailadres_invoer
 
-    def datum_invoer(self):
-        """
-        Vraag naar de datum en kijk of deze datum valid is.
-        Aan de parameter dag geeft je de datum mee geschreven als: 26-10-2015. Je kunt alleen een request doen naar de TV-films voor vandaag en morgen.
-        http://stackoverflow.com/questions/10002587/validating-date-both-format-and-value
-        """
-        self.email_invoer_vak.destroy()
-        import time
-        import datetime
-        global datum
-        self.datum_invoer_vak = tk.Tk()
-        w = 400
-        h = 650
-        ws = self.datum_invoer_vak.winfo_screenwidth()
-        hs = self.datum_invoer_vak.winfo_screenheight()
-        x = (ws/2) - (w/2)
-        y = (hs/2) - (h/2)
-        self.datum_invoer_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
-        self.datum_invoer_vak.configure(background="orange")
-        label = tk.Label(self.datum_invoer_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
-
-        label_naam = tk.Label(self.datum_invoer_vak, text="Van welke dag wil je een film kijken? (dd-mm-yyyy) Alleen de datums van vandaag en morgen zijn geldig: ", background="orange")
-        label_naam.place(y=350, x=100)
-        self.datum_invoer = tk.Entry(self.datum_invoer_vak)
-        self.datum_invoer.place(y=300, x=160)
-        label.place(y=230, x=105)
-        label1_naam = tk.Label(self.datum_invoer_vak, text="Typ 0 voor Alle films \n1 voor filmtips \n2 voor film van de dag: ", background="orange")
-        self.film_invoer = tk.Entry(self.datum_invoer_vak)
-        self.film_invoer.bind('<Return>', lambda: self.Open_menu(self.datum_invoer.get(), self.film_invoer.get()))
-        self.film_invoer.place(y=200, x=160)
-        verder_button = tk.Button(self.datum_invoer_vak, text="Verder", command=(lambda: self.Open_menu(self.datum_invoer.get(), self.film_invoer.get())), font=('Verdana', 10, 'bold'))
-        verder_button.place(y=350, x=130)
-        quit_button = tk.Button(self.datum_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
-        quit_button.place(y=350, x=195)
-        self.datum_invoer_vak.mainloop()
-
-
-    def Open_menu(self, datum, film_keuze):
-        self.datum = datum
-        self.film_keuze = film_keuze
+    def Open_menu(self):
         self.Exit_program(self.emailadres_invoer.get())
-        ticket(self.naam, self.achternaam, self.emailadres)
-        #from navigation import ThuisBioscoop #kan beter maar hij opent bij importeren
+        from navigation import ThuisBioscoop #kan beter maar hij opent bij importeren
 
     def Exit_program(self, emailadres):
         """Deze functie zorgt ervoor dat het programma compleet afgesloten wordt.
         """
         self.emailadres = emailadres
+        self.email_invoer_vak.destroy()
         window.destroy()
 
     def Quit_button(self):
@@ -433,6 +289,6 @@ class Gebruikersnaam(tk.Frame):
 
 App = Gebruikersnaam(master=window)
 App.mainloop()
-
+ticket()
 
 # ticket nummer in  window
