@@ -6,6 +6,8 @@ password=input("Wachtwoord:")
 #s = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
 if username and password in open('passwords.txt').read():
     print("true")
+else:
+    print("false")
 """"
 while password == 'lol':
     if s.find(str(username)) != -1:
