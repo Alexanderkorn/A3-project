@@ -114,23 +114,10 @@ class StartPage(tk.Frame):
         self.lijst_van_zenders.place(height=100, width=250, y=240, x=75)
 
 
-        def uitvoeren():
-            self.nummer_leverancier()
-        button = tk.Button(self, text="Verder", command=(lambda: self.nummer_leverancier))
+        button = tk.Button(self, text="Verder", command=(lambda: controller.show_frame(PageOne)))
         button.pack()
         label = tk.Label(self, text="Deze films zijn op de zender :", font="LARGE_FONT", background='orange')
         label.pack()
-
-
-
-    def nummer_leverancier(self):
-        global zenders
-        global zender_leverancier
-        goede_nummer_leverancier = str(self.lijst_van_zenders.curselection())
-        index_goede_nummer_leverancier = int(goede_nummer_leverancier[1])
-        zender_leverancier = zenders[index_goede_nummer_leverancier]
-        return zender_leverancier
-
 
 class PageOne(tk.Frame):
 
@@ -145,12 +132,11 @@ class PageOne(tk.Frame):
         label.pack(pady=10, padx=10)
 
         # lijst_van_films = tk.Text(self, background='orange', font=('Verdana', 10, 'bold'))
-        gekozen_film = StartPage.nummer_leverancier(StartPage)
+        # gekozen_film = StartPage.nummer_leverancier()
         weergave_films_gekozen_zender_lijst =[]
         self.lijst_van_films = tk.Listbox(self)
         for i in zenders_en_films:
-            if i == gekozen_film:
-                weergave_films_gekozen_zender_lijst.append(zenders_en_films[i])
+            weergave_films_gekozen_zender_lijst.append(zenders_en_films[i])
         for i in weergave_films_gekozen_zender_lijst:
             self.lijst_van_films.insert(tk.END, i)
 
@@ -162,15 +148,9 @@ class PageOne(tk.Frame):
         button7.pack(pady=2, padx=2)
 
         button8 = ttk.Button(self, text="Inschrijven",
-                            command=lambda: self.Gekozen_zender_vinden())
+                            command=lambda: controller.show_frame(Verify1))
         button8.pack(pady=2, padx=2)
 
-    def Gekozen_zender_vinden(self):
-        global zenders
-        goede_nummer_leverancier = str(self.lijst_van_films.curselection())
-        index_goede_nummer_leverancier = int(goede_nummer_leverancier[1])
-        self.gekozen_zender = zenders[index_goede_nummer_leverancier]
-        controller.show_frame(Verify1)
 
 class Verify1(tk.Frame):
 
