@@ -1,5 +1,5 @@
 __author__ = 'Erwin'
-
+import tkinter as tk
 def datum_naar_film():
     """
     Vraag naar de datum en kijk of deze datum valid is.
@@ -55,6 +55,36 @@ def api():
     else:
         print("Er is een fout opgetreden")
 
-datum_naar_film()
 
 
+
+def datum_invoer(self):
+         """
+    Vraag naar de datum en kijk of deze datum valid is.
+    Aan de parameter dag geeft je de datum mee geschreven als: 26-10-2015. Je kunt alleen een request doen naar de TV-films voor vandaag en morgen.
+    http://stackoverflow.com/questions/10002587/validating-date-both-format-and-value
+    """
+    self.selectie_scherm_vak.destroy()
+        self.datum_invoer_vak = tk.Tk()
+        w = 400
+        h = 650
+        ws = self.datum_invoer_vak.winfo_screenwidth()
+        hs = self.datum_invoer_vak.winfo_screenheight()
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        self.datum_invoer_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        self.datum_invoer_vak.configure(background="orange")
+        label = tk.Label(self.voornaam_invoer_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
+        label.place(y=230, x=105)
+        label_naam = tk.Label(self.voornaam_invoer_vak, text="Uw naam: ", background="orange")
+        label_naam.place(y=300, x=100)
+        datum_invoer = tk.Entry(self.voornaam_invoer_vak)
+        datum_invoer.bind('<Return>', lambda: self.Achternaam_invoer(datum_invoer.get()))
+        datum_invoer.place(y=300, x=160)
+        verder_button = tk.Button(self.voornaam_invoer_vak, text="Verder", command=(lambda: self.Achternaam_invoer(datum_invoer.get())), font=('Verdana', 10, 'bold'))
+        verder_button.place(y=350, x=130)
+        quit_button = tk.Button(self.voornaam_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
+        quit_button.place(y=350, x=195)
+        self.voornaam_invoer_vak.mainloop()
+        return datum_invoer
+datum_invoer()

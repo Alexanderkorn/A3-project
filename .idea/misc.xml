@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< Updated upstream
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.5.0a3 (C:\Program Files (x86)\Python 3.5\python.exe)" project-jdk-type="Python SDK" />
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.4.3 (C:\Python34\python.exe)" project-jdk-type="Python SDK" />
+>>>>>>> Stashed changes
 </project>

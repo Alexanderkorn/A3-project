@@ -360,16 +360,61 @@ class Gebruikersnaam(tk.Frame):
         label_emailadres = tk.Label(self.email_invoer_vak, text="Uw E-mailadres: ", background="orange", font=('Verdana', 10))
         label_emailadres.place(y=300, x=55)
         self.emailadres_invoer = tk.Entry(self.email_invoer_vak)
+<<<<<<< Updated upstream
         self.emailadres_invoer.bind('<Return>', lambda: self.Open_menu())
         self.emailadres_invoer.place(y=300, x=170)
         verder_button = tk.Button(self.email_invoer_vak, text="Verder", command=(lambda: self.Open_menu()), font=('Verdana', 10, 'bold'))
+=======
+        self.emailadres_invoer.bind('<Return>', lambda: self.datum_invoer())
+        self.emailadres_invoer.place(y=300, x=160)
+        verder_button = tk.Button(self.email_invoer_vak, text="Verder", command=(lambda: self.datum_invoer()), font=('Verdana', 10, 'bold'))
+>>>>>>> Stashed changes
         verder_button.place(y=350, x=130)
         quit_button = tk.Button(self.email_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
         quit_button.place(y=350, x=195)
         self.email_invoer_vak.mainloop()
         return self.emailadres_invoer
 
-    def Open_menu(self):
+    def datum_invoer(self):
+        """
+        Vraag naar de datum en kijk of deze datum valid is.
+        Aan de parameter dag geeft je de datum mee geschreven als: 26-10-2015. Je kunt alleen een request doen naar de TV-films voor vandaag en morgen.
+        http://stackoverflow.com/questions/10002587/validating-date-both-format-and-value
+        """
+        self.email_invoer_vak.destroy()
+        import time
+        import datetime
+        global datum
+        self.datum_invoer_vak = tk.Tk()
+        w = 400
+        h = 650
+        ws = self.datum_invoer_vak.winfo_screenwidth()
+        hs = self.datum_invoer_vak.winfo_screenheight()
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        self.datum_invoer_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        self.datum_invoer_vak.configure(background="orange")
+        label = tk.Label(self.datum_invoer_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
+
+        label_naam = tk.Label(self.datum_invoer_vak, text="Van welke dag wil je een film kijken? (dd-mm-yyyy) Alleen de datums van vandaag en morgen zijn geldig: ", background="orange")
+        label_naam.place(y=350, x=100)
+        self.datum_invoer = tk.Entry(self.datum_invoer_vak)
+        self.datum_invoer.place(y=300, x=160)
+        label.place(y=230, x=105)
+        label1_naam = tk.Label(self.datum_invoer_vak, text="Typ 0 voor Alle films \n1 voor filmtips \n2 voor film van de dag: ", background="orange")
+        self.film_invoer = tk.Entry(self.datum_invoer_vak)
+        self.film_invoer.bind('<Return>', lambda: self.Open_menu(self.datum_invoer.get(), self.film_invoer.get()))
+        self.film_invoer.place(y=200, x=160)
+        verder_button = tk.Button(self.datum_invoer_vak, text="Verder", command=(lambda: self.Open_menu(self.datum_invoer.get(), self.film_invoer.get())), font=('Verdana', 10, 'bold'))
+        verder_button.place(y=350, x=130)
+        quit_button = tk.Button(self.datum_invoer_vak, text="Afsluiten", command=self.Quit_button, font=('Verdana', 10, 'bold'))
+        quit_button.place(y=350, x=195)
+        self.datum_invoer_vak.mainloop()
+
+
+    def Open_menu(self, datum, film_keuze):
+        self.datum = datum
+        self.film_keuze = film_keuze
         self.Exit_program(self.emailadres_invoer.get())
         ticket(self.naam, self.achternaam, self.emailadres)
         #from navigation import ThuisBioscoop #kan beter maar hij opent bij importeren
@@ -378,7 +423,6 @@ class Gebruikersnaam(tk.Frame):
         """Deze functie zorgt ervoor dat het programma compleet afgesloten wordt.
         """
         self.emailadres = emailadres
-        self.email_invoer_vak.destroy()
         window.destroy()
 
     def Quit_button(self):
