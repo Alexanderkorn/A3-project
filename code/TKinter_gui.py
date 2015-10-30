@@ -180,39 +180,39 @@ class Gebruikersnaam(tk.Frame):
 
     def check_login(self):
         global zenders
-        self.leverancier_invoer_vak.destroy()
-        self.check_login_vak = tk.Tk()
-        w = 400
-        h = 650
-        ws = self.check_login_vak.winfo_screenwidth()
-        hs = self.check_login_vak.winfo_screenheight()
-        x = (ws/2) - (w/2)
-        y = (hs/2) - (h/2)
-        self.check_login_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
-        self.check_login_vak.configure(background="orange")
-        label = tk.Label(self.check_login_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
-
-        label_naam = tk.Label(self.check_login_vak, text="Username", background="orange")
-        label_naam.place(y=350, x=100)
-        self.check_login = tk.Entry(self.check_login_vak)
-        self.check_login.place(y=300, x=160)
-        label.place(y=230, x=105)
-        username=zenders
+        # self.leverancier_invoer_vak.destroy()
+        # self.check_login_vak = tk.Tk()
+        # w = 400
+        # h = 650
+        # ws = self.check_login_vak.winfo_screenwidth()
+        # hs = self.check_login_vak.winfo_screenheight()
+        # x = (ws/2) - (w/2)
+        # y = (hs/2) - (h/2)
+        # self.check_login_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        # self.check_login_vak.configure(background="orange")
+        # label = tk.Label(self.check_login_vak, text="Gegevens invoeren", font="LARGE_FONT", background='orange')
+        #
+        # label_naam = tk.Label(self.check_login_vak, text="Username", background="orange")
+        # label_naam.place(y=350, x=100)
+        # self.check_login = tk.Entry(self.check_login_vak)
+        # self.check_login.place(y=300, x=160)
+        # label.place(y=230, x=105)
+        username=input("")
         #print("Clicked")
         #username = self.entry_1.get()
-        password = ""
+        password = input("")
 
         if username and password in open('passwords.txt').read():
-            tk.messagebox("Login info", "Welcome "+username)
+            print("Login info", "Welcome "+username)
         else:
-            tk.messagebox("Login error", "Incorrect username")
+            print("Login error", "Incorrect username")
         #goed
-        verder_button = tk.Button(self.check_login_vak, text="Verder", command=(lambda: None), font=('Verdana', 10, 'bold'))
-        verder_button.place(y=380, x=130)
-        quit_button = tk.Button(self.check_login_vak, text="Afsluiten", command=(lambda: quit_button), font=('Verdana', 10, 'bold'))
-        quit_button.place(y=380, x=195)
+        # verder_button = tk.Button(self.check_login_vak, text="Verder", command=(lambda: None), font=('Verdana', 10, 'bold'))
+        # verder_button.place(y=380, x=130)
+        # quit_button = tk.Button(self.check_login_vak, text="Afsluiten", command=(lambda: quit_button), font=('Verdana', 10, 'bold'))
+        # quit_button.place(y=380, x=195)
 
-        self.check_login_vak.mainloop()
+        #self.check_login_vak.mainloop()
 
 
     def Weergave_van_eigen_films(self):
