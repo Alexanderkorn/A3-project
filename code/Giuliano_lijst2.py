@@ -91,6 +91,7 @@ class PageTwo(tk.Frame):
                              command=lambda: controller.show_frame(Verify2))
         button2.pack()
 
+# dkjldsjlkfs
 
 
 app = ThuisBioscoop()
