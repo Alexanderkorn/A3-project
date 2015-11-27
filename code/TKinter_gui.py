@@ -64,9 +64,9 @@ class Gebruikersnaam(tk.Frame):
         naam_invoer = tk.Entry(self.voornaam_invoer_vak)
         naam_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.voornaam_invoer_vak, text="verder", command=(lambda: self.Achternaam_invoer(naam_invoer.get())))
-        verder_button.place(y=350, x=200)
+        verder_button.place(y=350, x=185)
         quit_button = tk.Button(self.voornaam_invoer_vak, text="Afsluiten", command=self.Quit_button)
-        quit_button.place(y=250, x=180)
+        quit_button.place(y=245, x=177)
         self.voornaam_invoer_vak.mainloop()
         return naam_invoer
 
@@ -85,11 +85,13 @@ class Gebruikersnaam(tk.Frame):
         self.achternaam_invoer_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.achternaam_invoer_vak.configure(background="orange")
         label_naam = tk.Label(self.achternaam_invoer_vak, text="Uw achternaam: ", background="orange")
-        label_naam.pack(side=tk.LEFT)
+        label_naam.place(y=300, x=100)
         achternaam_invoer = tk.Entry(self.achternaam_invoer_vak)
-        achternaam_invoer.pack(side=tk.RIGHT)
+        achternaam_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.achternaam_invoer_vak, text="verder", command=(lambda: self.Email_invoer(achternaam_invoer.get())))
-        verder_button.pack(side=tk.BOTTOM)
+        verder_button.place(y=350, x=185)
+        quit_button = tk.Button(self.voornaam_invoer_vak, text="Afsluiten", command=self.Quit_button)
+        quit_button.place(y=245, x=177)
         self.achternaam_invoer_vak.mainloop()
         return achternaam_invoer
 
@@ -108,11 +110,13 @@ class Gebruikersnaam(tk.Frame):
         self.email_invoer_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.email_invoer_vak.configure(background="orange")
         label_emailadres = tk.Label(self.email_invoer_vak, text="Uw E-mailadres: ", background="orange")
-        label_emailadres.pack(side=tk.LEFT)
+        label_emailadres.place(y=300, x=100)
         emailadres_invoer = tk.Entry(self.email_invoer_vak)
-        emailadres_invoer.pack(side=tk.RIGHT)
+        emailadres_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.email_invoer_vak, text="verder", command=(lambda: self.Exit_program(emailadres_invoer.get())))
-        verder_button.pack(side=tk.BOTTOM)
+        verder_button.place(y=350, x=185)
+        quit_button = tk.Button(self.voornaam_invoer_vak, text="Afsluiten", command=self.Quit_button)
+        quit_button.place(y=245, x=177)
         self.email_invoer_vak.mainloop()
         return emailadres_invoer
 
