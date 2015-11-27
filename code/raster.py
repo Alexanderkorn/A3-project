@@ -31,7 +31,6 @@ class Application(tk.Frame):
         self.check_in["command"] = self.say_choice_film1
         self.check_in.pack(side="top")
 
-
     def check_in_Film2(self):
         self.check_in = tk.Button(self)
         self.check_in["text"] = "Star Wars"
@@ -89,6 +88,10 @@ class Application(tk.Frame):
     def say_choice_film6(self):
         root.configure(background="black")
         print("U heeft gekozen voor The Ring")
+
+
+
+
     #
     # def show_img(self):
     #     load = Image.open('img/martian.jpg')
