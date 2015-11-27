@@ -9,19 +9,23 @@ def datum_naar_film():
     import time
     import datetime
     global datum
-    datum = input('Op welke datum wil je een film kijken? Je kan alleen kiezen voor vandaag of morgen (dd-mm-yyyy): ')
+
+
+
+    datum = input('Van welke dag wil je een film kijken? (dd-mm-yyyy) Alleen de datums van vandaag en morgen zijn geldig: ')
     try:
         valid_date = time.strptime(datum, '%d-%m-%Y')
-        today_date=(datetime.date.today())
-        tomorrow_date=datetime.date.today() + datetime.timedelta(days=1)
-        if datum != today_date or tomorrow_date :
-            print ("Alleen vandaag en morgen zijn geldige datums")
-            datum_naar_film()
+        today_date=str(datetime.date.today().strftime('%d-%m-%Y'))
+        tomorrow =  datetime.date.today() + datetime.timedelta(days=1)
+        tomorrow = tomorrow.strftime('%d-%m-%Y')
+        if datum == today_date or datum == tomorrow:
+            api()
         else:
-            print (" ")
+            print ("Voer een geldige datum in.(Datum van vandaag of morgen) ")
     except ValueError:
-            print('Invalid date!')
-            datum_naar_film()
+        print('Invalid date!')
+
+
 
 def api():
     """
@@ -33,18 +37,22 @@ def api():
     """
     import requests
 
-    datum_naar_film()
+    list = ['0', '1', '2']
+    sorteren = input("Typ 0 voor Alle films \n1 voor filmtips \n2 voor film van de dag: ")
 
-    sorteren = input("Typ \n0 voor Alle films \n1 voor filmtips \n2 voor film van de dag: ")
+    while sorteren not in list:
+        sorteren = input("Typ 0 voor Alle films \n1 voor filmtips \n2 voor film van de dag: ")
 
     request_filmtotaal = ('http://www.filmtotaal.nl/api/filmsoptv.xml?apikey=elqzcftw5jip13ijtki2z8mz74i14i6d&dag=%s&sorteer=%s' %(datum, sorteren))
 
 
     response = requests.get(request_filmtotaal)
-    if response.text != "Error:":
+    if response.text != "error:":
         with open('data.xml', 'w') as f:
             f.write(response.text)
     else:
         print("Er is een fout opgetreden")
-#    print(response.text)
-api()
+
+datum_naar_film()
+
+
