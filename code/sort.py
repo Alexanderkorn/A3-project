@@ -1,9 +1,6 @@
 __author__ = 'Roy'
-from xml.dom.minidom import parse
-
 import xmltodict
-
-
+from xml.dom.minidom import parse
 def read_xml():
     file = open('data.xml','r')
     xml_string = file.read()
@@ -15,4 +12,6 @@ nodes = parse('data.xml')
 for film_nummer in nodes.getElementsByTagName('film'): # 7 = in range of childnodes
     #print(film_dict['filmsoptv']['film'][film_nummer]['starttijd'])
     print(film_nummer.toxml())
+
+
 

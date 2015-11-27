@@ -1,21 +1,39 @@
 __author__ = 'Roy'
-#bron: http://stackoverflow.com/questions/6653128/getting-text-between-xml-tags-with-minidom   j
+#bron: http://stackoverflow.com/questions/6653128/getting-text-between-xml-tags-with-minidom
+
+import xmltodict
 import xml.dom.minidom
-document = "<filmsoptv><film><ft_link>http://www.filmtotaal.nl/film.php?id=28252</ft_link><titel>Die sechs Schw&amp;auml;ne</titel><jaar>2012</jaar><regisseur>Karola Hattop</regisseur><cast>Sinja Dieks:Julia J&amp;auml;ger:Andr&amp;eacute; Kaczmarczyk:Manfred-Anton Algrang:Henning Peker:Julia Sch&amp;auml;fle</cast><genre>Familiefilm</genre><land>Duitsland</land><cover>http://www.filmtotaal.nl/images/covers/rxubps6yln.jpg</cover><tagline></tagline><duur>90</duur><synopsis>Constanze komt er op haar achttiende verjaardag achter dat ze zes broers heeft. Die veranderden op de dag van haar geboorte in sneeuwwitte zwanen. Enkel Constanze kan de vloek ongedaan maken, door zes jaar geen woord te spreken. Ze twijfelt geen seconde, maar haalt ze de eindstreep?</synopsis><ft_rating>0</ft_rating><ft_votes>0</ft_votes><imdb_id>2374860</imdb_id><imdb_rating>6.5</imdb_rating><imdb_votes>35</imdb_votes><starttijd>1445956200</starttijd><eindtijd>1445961600</eindtijd><zender>NPO3</zender><filmtip>1</filmtip></film><film><ft_link>http://www.filmtotaal.nl/film.php?id=16540</ft_link><titel>Due Date</titel><jaar>2010</jaar><regisseur>Todd Phillips</regisseur><cast>Robert Downey Jr.:Zach Galifianakis:Michelle Monaghan:Jamie Foxx:Juliette Lewis:Danny R. McBride</cast><genre>Komedie</genre><land>Verenigde Staten</land><cover>http://www.filmtotaal.nl/images/covers/kzxj3a57xo.jpg</cover><tagline></tagline><duur>100</duur><synopsis>Een vader in sp&amp;eacute; (Robert Downey Jr.) is gedwongen om mee te liften met een highschool dropout (Zach Galifianakis) om middels een road-trip op tijd bij de geboorte van zijn zoontje te komen.</synopsis><ft_rating>6.6</ft_rating><ft_votes>70</ft_votes><imdb_id>1231583</imdb_id><imdb_rating>6.6</imdb_rating><imdb_votes>259984</imdb_votes><starttijd>1445974200</starttijd><eindtijd>1445981100</eindtijd><zender>Veronica</zender><filmtip>1</filmtip></film><film><ft_link>http://www.filmtotaal.nl/film.php?id=3649</ft_link><titel>The World Is Not Enough</titel><jaar>1999</jaar><regisseur>Michael Apted</regisseur><cast>Pierce Brosnan:Sophie Marceau:Robert Carlyle:Denise Richards:Robbie Coltrane:Judi Dench</cast><genre>Actie:Avontuur:Thriller</genre><land>Verenigd Koninkrijk:Verenigde Staten</land><cover>http://www.filmtotaal.nl/images/covers/v6xvu2pccx.jpg</cover><tagline>Danger Suspense Excitement There must be when he's around</tagline><duur>128</duur><synopsis>Sir Robert King is een rijke man die olievelden bezit en bezig is met een nieuw project: de aanleg van een nieuwe olieslagader naar het westen. Bij een bezoekje aan M. in het hoofdkwartier van MI6 in Londen wordt hij echter vermoord. James Bond probeert Sir King nog te waarschuwen maar is te laat. Tijdens deze poging wordt hij beschoten door een dame.</synopsis><ft_rating>6.5</ft_rating><ft_votes>75</ft_votes><imdb_id>0143145</imdb_id><imdb_rating>6.4</imdb_rating><imdb_votes>146966</imdb_votes><starttijd>1445974200</starttijd><eindtijd>1445983800</eindtijd><zender>RTL7</zender><filmtip>1</filmtip></film><film><ft_link>http://www.filmtotaal.nl/film.php?id=1825</ft_link><titel>Get Shorty</titel><jaar>1995</jaar><regisseur>Barry Sonnenfeld</regisseur><cast>John Travolta:Gene Hackman:Rene Russo:Danny DeVito:Dennis Farina:Delroy Lindo</cast><genre>Komedie:Misdaad</genre><land>Verenigde Staten</land><cover>http://www.filmtotaal.nl/images/covers/avuemmlg1f.jpg</cover><tagline>Attitude Plays a Part.</tagline><duur>105</duur><synopsis>Chili Palmer is een gangster die in Hollywood een schuld moet zien te vereffenen voor zijn baas. Eenmaal in Hollywood doet hij wat hij altijd had willen doen: een film produceren.</synopsis><ft_rating>6.5</ft_rating><ft_votes>46</ft_votes><imdb_id>0113161</imdb_id><imdb_rating>6.9</imdb_rating><imdb_votes>60291</imdb_votes><starttijd>1445974200</starttijd><eindtijd>1445981700</eindtijd><zender>SBS9</zender><filmtip>1</filmtip></film><film><ft_link>http://www.filmtotaal.nl/film.php?id=3042</ft_link><titel>Domestic Disturbance</titel><jaar>2001</jaar><regisseur>Harold Becker</regisseur><cast>John Travolta:James Lashly:Rebecca Tilney:Debra Mooney:Vince Vaughn:Teri Polo</cast><genre>Misdaad:Drama:Mystery:Thriller</genre><land>Verenigde Staten</land><cover>http://www.filmtotaal.nl/images/covers/39lae3iiqc.jpg</cover><tagline>He will do anything to protect his family.</tagline><duur>89</duur><synopsis>Na de scheiding met Susan is Frank's zoon Danny constant voor kleine delicten bij de politie te vinden. Wanneer Susan met Rick hertrouwt, duikt Ray op, die zegt een oude vriend van Rick te zijn.</synopsis><ft_rating>6.1</ft_rating><ft_votes>16</ft_votes><imdb_id>0249478</imdb_id><imdb_rating>5.5</imdb_rating><imdb_votes>20614</imdb_votes><starttijd>1445974200</starttijd><eindtijd>1445980500</eindtijd><zender>RTL8</zender><filmtip>1</filmtip></film><film><ft_link>http://www.filmtotaal.nl/film.php?id=19358</ft_link><titel>13</titel><jaar>2010</jaar><regisseur>Géla Babluani</regisseur><cast>Jason Statham:Alexander Skarsg&amp;aring;rd:Mickey Rourke:Emmanuelle Chriqui:Michael Shannon:Ray Winstone</cast><genre>Drama:Thriller</genre><land>Verenigde Staten</land><cover>http://www.filmtotaal.nl/images/covers/28lmdo8tto.jpg</cover><tagline></tagline><duur>97</duur><synopsis>13 gaat over een naieve jonge man die de identiteit van een dode man aanneemt en vervolgens terecht komt in een wereld vol macht en geweld, waar een grote rol is weggelegd voor het spel Russisch roulette.</synopsis><ft_rating>5.7</ft_rating><ft_votes>21</ft_votes><imdb_id>0798817</imdb_id><imdb_rating>6.1</imdb_rating><imdb_votes>32846</imdb_votes><starttijd>1445984100</starttijd><eindtijd>1445990400</eindtijd><zender>RTL7</zender><filmtip>1</filmtip></film><film><ft_link>http://www.filmtotaal.nl/film.php?id=10475</ft_link><titel>40 Days and 40 Nights</titel><jaar>2002</jaar><regisseur>Michael Lehmann</regisseur><cast>Josh Hartnett:Shannyn Sossamon:Paulo Costanzo:Adam Trese:Emmanuelle Vaugier:Lorin Heath</cast><genre>Komedie:Romantiek:Drama</genre><land>Verenigde Staten:Verenigd Koninkrijk:Frankrijk</land><cover>http://www.filmtotaal.nl/images/covers/d5irrfh5i4.jpg</cover><tagline>One man is about to do the unthinkable.  No sex.  Whatsoever.  For... 40 Days and 40 Nights</tagline><duur>96</duur><synopsis>Matt is een knappe jongen van in de twintig. Zijn laatste relatie is een complete ramp geworden. Sindsdien heeft hij veel liefdesverdriet, hij krijgt er zelfs waanvoorstellingen door. De oplossing: 40 dagen geen seks meer.</synopsis><ft_rating>5.2</ft_rating><ft_votes>50</ft_votes><imdb_id>0243736</imdb_id><imdb_rating>5.6</imdb_rating><imdb_votes>59943</imdb_votes><starttijd>1445997900</starttijd><eindtijd>1446003300</eindtijd><zender>FOX</zender><filmtip>1</filmtip></film></filmsoptv>"
-dom = xml.dom.minidom.parseString(document)
+from xml.dom.minidom import parse
 
-def getText(nodelist):
-    rc = []
-    for node in nodelist:
-        if node.nodeType == node.TEXT_NODE:
-            rc.append(node.data)
-    return ''.join(rc)
+def read_xml():
+    file = open('data.xml','r')
+    xml_string = file.read()
+    return xmltodict.parse(xml_string)
 
-def handleTok(tokenlist):
-    texts = ""
-    for token in tokenlist:
-        texts += "\n"+ getText(token.childNodes)
-    return texts
-foo = dom.getElementsByTagName("")
-text = handleTok(foo)
-print(text)
+film_nummer = None
+film_dict = read_xml()
+nodes = parse('data.xml')
+
+for film_nummer in nodes.getElementsByTagName('film'):
+
+    document = film_nummer.toxml()
+    dom = xml.dom.minidom.parseString(document)
+
+    def getText(nodelist):
+        rc = []
+        for node in nodelist:
+            if node.nodeType == node.TEXT_NODE:
+                rc.append(node.data)
+        return ''.join(rc)
+
+    def handleTok(tokenlist):
+        texts = ""
+        for token in tokenlist:
+            texts += ""+ getText(token.childNodes)
+        return texts
+    foo = dom.getElementsByTagName("starttijd")
+    text = handleTok(foo)
+    print(text)
+
+
+
