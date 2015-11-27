@@ -90,7 +90,7 @@ class Gebruikersnaam(tk.Frame):
         achternaam_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.achternaam_invoer_vak, text="verder", command=(lambda: self.Email_invoer(achternaam_invoer.get())))
         verder_button.place(y=350, x=185)
-        quit_button = tk.Button(self.voornaam_invoer_vak, text="Afsluiten", command=self.Quit_button)
+        quit_button = tk.Button(self.achternaam_invoer_vak, text="Afsluiten", command=self.Quit_button)
         quit_button.place(y=245, x=177)
         self.achternaam_invoer_vak.mainloop()
         return achternaam_invoer
@@ -115,7 +115,7 @@ class Gebruikersnaam(tk.Frame):
         emailadres_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.email_invoer_vak, text="verder", command=(lambda: self.Exit_program(emailadres_invoer.get())))
         verder_button.place(y=350, x=185)
-        quit_button = tk.Button(self.voornaam_invoer_vak, text="Afsluiten", command=self.Quit_button)
+        quit_button = tk.Button(self.email_invoer_vak, text="Afsluiten", command=self.Quit_button)
         quit_button.place(y=245, x=177)
         self.email_invoer_vak.mainloop()
         return emailadres_invoer
