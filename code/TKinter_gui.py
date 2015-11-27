@@ -1,4 +1,41 @@
+#from database import *
 import tkinter as tk
+import sys
+
+def ticket():
+    """
+
+    Eerst import de functie de benodigde functies.
+    Dan wordt er een ticket nummer aangemaakt
+
+    """
+    try:
+        import csv
+        from random import randint
+    except:
+        sys.exit("Er is wat fout gegaan met importeren van de functies.")
+
+
+
+    try:
+        ticket = randint(0,999999999)
+    except:
+        sys.exit("Er is wat fout gegaan met het ticket nummer aanmaken.")
+
+
+    try:
+        with open('database.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile, delimiter=';')
+            writer.writerow([App.naam, App.achternaam, App.emailadres, str(ticket)])
+
+    except:
+        sys.exit("Er is wat mis gegaan met het openen en of het scrijven van de database")
+
+
+    try:
+        print("Uw ticket nummer is : "+str(ticket))
+    except:
+        sys.exit("Er is wat fout gegaan met het ticket nummer printen.")
 
 
 window = tk.Tk()
@@ -11,6 +48,8 @@ class Gebruikersnaam(tk.Frame):
         self.Naam_invoer()
 
     def Naam_invoer(self):
+        """Deze functie laat de gebruiker zijn/haar naam invoeren.
+        """
         self.voornaam_invoer_vak = tk.Tk()
         w = 400
         h = 650
@@ -21,17 +60,20 @@ class Gebruikersnaam(tk.Frame):
         self.voornaam_invoer_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.voornaam_invoer_vak.configure(background="orange")
         label_naam = tk.Label(self.voornaam_invoer_vak, text="Uw naam: ", background="orange")
-        label_naam.pack(padx=10, pady=10, side=tk.LEFT)
+        label_naam.pack(side=tk.LEFT)
         naam_invoer = tk.Entry(self.voornaam_invoer_vak)
-        naam_invoer.pack(padx=10, pady=10, side=tk.RIGHT)
-        verder_button = tk.Button(self.voornaam_invoer_vak, text="verder", command=self.Achternaam_invoer)
+        naam_invoer.pack(side=tk.RIGHT)
+        verder_button = tk.Button(self.voornaam_invoer_vak, text="verder", command=(lambda: self.Achternaam_invoer(naam_invoer.get())))
         verder_button.pack(side=tk.BOTTOM)
         self.voornaam_invoer_vak.mainloop()
         return naam_invoer
 
-    def Achternaam_invoer(self):
+    def Achternaam_invoer(self, naam):
+        """Deze functie laat de gebruiker zijn/haar naam invoeren.
+        """
         self.voornaam_invoer_vak.destroy()
         self.achternaam_invoer_vak = tk.Tk()
+        self.naam = naam
         w = 400
         h = 650
         ws = self.achternaam_invoer_vak.winfo_screenwidth()
@@ -41,16 +83,18 @@ class Gebruikersnaam(tk.Frame):
         self.achternaam_invoer_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.achternaam_invoer_vak.configure(background="orange")
         label_naam = tk.Label(self.achternaam_invoer_vak, text="Uw achternaam: ", background="orange")
-        label_naam.pack(padx=10, pady=10, side=tk.LEFT)
+        label_naam.pack(side=tk.LEFT)
         achternaam_invoer = tk.Entry(self.achternaam_invoer_vak)
-        achternaam_invoer.pack(padx=10, pady=10, side=tk.RIGHT)
-        verder_button = tk.Button(self.achternaam_invoer_vak, text="verder", command=self.Email_invoer)
+        achternaam_invoer.pack(side=tk.RIGHT)
+        verder_button = tk.Button(self.achternaam_invoer_vak, text="verder", command=(lambda: self.Email_invoer(achternaam_invoer.get())))
         verder_button.pack(side=tk.BOTTOM)
         self.achternaam_invoer_vak.mainloop()
         return achternaam_invoer
 
-
-    def Email_invoer(self):
+    def Email_invoer(self, achternaam):
+        """Deze functie laat de gebruiker zijn/haar email invoeren.
+        """
+        self.achternaam = achternaam
         self.achternaam_invoer_vak.destroy()
         self.email_invoer_vak = tk.Tk()
         w = 400
@@ -65,12 +109,20 @@ class Gebruikersnaam(tk.Frame):
         label_emailadres.pack(side=tk.LEFT)
         emailadres_invoer = tk.Entry(self.email_invoer_vak)
         emailadres_invoer.pack(side=tk.RIGHT)
-        verder_button = tk.Button(self.email_invoer_vak, text="verder", command=None)
+        verder_button = tk.Button(self.email_invoer_vak, text="verder", command=(lambda: self.Exit_program(emailadres_invoer.get())))
         verder_button.pack(side=tk.BOTTOM)
         self.email_invoer_vak.mainloop()
         return emailadres_invoer
 
+    def Exit_program(self, emailadres):
+        """Deze functie zorgt ervoor dat het programma compleet afgesloten wordt.
+        """
+        self.emailadres = emailadres
+        self.email_invoer_vak.destroy()
+        window.destroy()
 
 App = Gebruikersnaam(master=window)
+
 App.mainloop()
 
+ticket()
