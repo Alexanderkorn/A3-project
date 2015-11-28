@@ -62,11 +62,12 @@ class Gebruikersnaam(tk.Frame):
         label_naam = tk.Label(self.voornaam_invoer_vak, text="Uw naam: ", background="orange")
         label_naam.place(y=300, x=100)
         naam_invoer = tk.Entry(self.voornaam_invoer_vak)
+        naam_invoer.bind('<Return>', lambda event: self.Achternaam_invoer(naam_invoer.get()))
         naam_invoer.place(y=300, x=160)
-        verder_button = tk.Button(self.voornaam_invoer_vak, text="verder", command=(lambda: self.Achternaam_invoer(naam_invoer.get())))
-        verder_button.place(y=350, x=185)
+        verder_button = tk.Button(self.voornaam_invoer_vak, text="Verder", command=(lambda: self.Achternaam_invoer(naam_invoer.get())))
+        verder_button.place(y=350, x=150)
         quit_button = tk.Button(self.voornaam_invoer_vak, text="Afsluiten", command=self.Quit_button)
-        quit_button.place(y=245, x=177)
+        quit_button.place(y=350, x=205)
         self.voornaam_invoer_vak.mainloop()
         return naam_invoer
 
@@ -85,10 +86,11 @@ class Gebruikersnaam(tk.Frame):
         self.achternaam_invoer_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.achternaam_invoer_vak.configure(background="orange")
         label_naam = tk.Label(self.achternaam_invoer_vak, text="Uw achternaam: ", background="orange")
-        label_naam.place(y=300, x=100)
+        label_naam.place(y=300, x=65)
         achternaam_invoer = tk.Entry(self.achternaam_invoer_vak)
+        achternaam_invoer.bind('<Return>', lambda event: self.Email_invoer(achternaam_invoer.get()))
         achternaam_invoer.place(y=300, x=160)
-        verder_button = tk.Button(self.achternaam_invoer_vak, text="verder", command=(lambda: self.Email_invoer(achternaam_invoer.get())))
+        verder_button = tk.Button(self.achternaam_invoer_vak, text="Verder", command=(lambda: self.Email_invoer(achternaam_invoer.get())))
         verder_button.place(y=350, x=185)
         quit_button = tk.Button(self.achternaam_invoer_vak, text="Afsluiten", command=self.Quit_button)
         quit_button.place(y=245, x=177)
@@ -110,10 +112,11 @@ class Gebruikersnaam(tk.Frame):
         self.email_invoer_vak.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.email_invoer_vak.configure(background="orange")
         label_emailadres = tk.Label(self.email_invoer_vak, text="Uw E-mailadres: ", background="orange")
-        label_emailadres.place(y=300, x=100)
+        label_emailadres.place(y=300, x=65)
         emailadres_invoer = tk.Entry(self.email_invoer_vak)
+        emailadres_invoer.bind('<Return>', lambda event: self.Exit_program(emailadres_invoer.get()))
         emailadres_invoer.place(y=300, x=160)
-        verder_button = tk.Button(self.email_invoer_vak, text="verder", command=(lambda: self.Exit_program(emailadres_invoer.get())))
+        verder_button = tk.Button(self.email_invoer_vak, text="Verder", command=(lambda: self.Exit_program(emailadres_invoer.get())))
         verder_button.place(y=350, x=185)
         quit_button = tk.Button(self.email_invoer_vak, text="Afsluiten", command=self.Quit_button)
         quit_button.place(y=245, x=177)
@@ -128,6 +131,8 @@ class Gebruikersnaam(tk.Frame):
         window.destroy()
 
     def Quit_button(self):
+        """Deze functie zorgt voor een knop die het hele programma afsluit.
+        """
         sys.exit()
 
 App = Gebruikersnaam(master=window)
