@@ -91,9 +91,9 @@ class Gebruikersnaam(tk.Frame):
         achternaam_invoer.bind('<Return>', lambda event: self.Email_invoer(achternaam_invoer.get()))
         achternaam_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.achternaam_invoer_vak, text="Verder", command=(lambda: self.Email_invoer(achternaam_invoer.get())))
-        verder_button.place(y=350, x=185)
+        verder_button.place(y=350, x=150)
         quit_button = tk.Button(self.achternaam_invoer_vak, text="Afsluiten", command=self.Quit_button)
-        quit_button.place(y=245, x=177)
+        quit_button.place(y=350, x=205)
         self.achternaam_invoer_vak.mainloop()
         return achternaam_invoer
 
@@ -117,9 +117,9 @@ class Gebruikersnaam(tk.Frame):
         emailadres_invoer.bind('<Return>', lambda event: self.Exit_program(emailadres_invoer.get()))
         emailadres_invoer.place(y=300, x=160)
         verder_button = tk.Button(self.email_invoer_vak, text="Verder", command=(lambda: self.Exit_program(emailadres_invoer.get())))
-        verder_button.place(y=350, x=185)
+        verder_button.place(y=350, x=150)
         quit_button = tk.Button(self.email_invoer_vak, text="Afsluiten", command=self.Quit_button)
-        quit_button.place(y=245, x=177)
+        quit_button.place(y=350, x=205)
         self.email_invoer_vak.mainloop()
         return emailadres_invoer
 
