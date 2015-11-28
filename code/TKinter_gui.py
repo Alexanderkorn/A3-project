@@ -25,11 +25,11 @@ def ticket():
 
     try:
         with open('database.csv', 'a') as csvfile:
-            writer = csv.writer(csvfile, delimiter=';')
+            writer = csv.writer(csvfile, delimiter=';', dialect='excel', lineterminator='\n')
             writer.writerow([App.naam, App.achternaam, App.emailadres, str(ticket)])
 
     except:
-        sys.exit("Er is wat mis gegaan met het openen en of het scrijven van de database")
+        sys.exit("Er is wat mis gegaan met het openen en of het schrijven van de database")
 
 
     try:
